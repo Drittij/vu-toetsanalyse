@@ -40,9 +40,7 @@ write.csv2(data, file=paste0(Network_directory,"data.csv"), row.names=FALSE)
 sleutel <- read.csv2(paste0(Network_directory,"sleutel.csv"))
 
 ##Transformeren van ruwe letter_data naar score data + basale analyse
-# scored_data <- score_daniel(data, sleutel, multiKeySep = ",", output.scored = TRUE, rel = TRUE)
-
-scored_data <- score(data, sleutel, output.scored = TRUE, rel = TRUE)
+scored_data <- score_daniel(data, sleutel, multiKeySep = ",", output.scored = TRUE, rel = TRUE)
 
 ##Toevoegen studentnummers aan score data - datax
 scored_datax <- cbind(studentnummers, scored_data$scored)
@@ -68,7 +66,7 @@ colnames(studentnamen) <- "studentnamen"
 total_score <- cbind(studentnamen, total_score)
 
 ##Wegschrijven score per student naar csv file
-write.csv2(total_score, file="results_student.csv", row.names=FALSE)
+write.csv2(total_score, file=paste0(Network_directory,"results_student.csv"), row.names=FALSE)
 
 ## Toon cronbachs alpha
 KR20 <- scored_data$reliability$alpha
@@ -82,17 +80,6 @@ KR20_75 <- KR20_75$r.new
 par(mfrow=c(4,5)) 
 par(cex = 0.4)
 for ( i in 1:nrq ) cttICC(scored_data$score, scored_data$scored[,i], colTheme="spartans", cex=1.5, ylab=names(sleutel[i]))
-
-##Functie for item distractor analysis
-distractor.analysis(data, sleutel,p.table=FALSE,write.csv="awaarden2.csv")
-awaarden <- read.csv("awaarden2.csv")
-
-names(awaarden)[names(awaarden) == "X."] <- "Lower group"
-names(awaarden)[names(awaarden) == "X..1"] <- "Middle group"
-names(awaarden)[names(awaarden) == "X..2"] <- "Upper group"
-
-write.csv2(awaarden, row.names = F, file="analyse awaarden.csv")
-
 
 ##Maak itemanalyse
 pwaarde <- as.data.frame(scored_data$reliability$itemMean)
@@ -122,14 +109,14 @@ mrelp <- summarise(itemanalyse, mean(Rel_P))
 mp <- summarise(itemanalyse, mean(P_waarde))
 toets <- mutate(toets, meanRelP = as.numeric(mrelp), meanP = as.numeric(mp))
 geslaagd <- filter(total_score, cijfer >= 5.5) %>% nrow()
-pgeslaagd <- geslaagd/nrow(total_score)
+pgeslaagd <- round(geslaagd/nrow(total_score)*100)
 toets <- mutate(toets, perc_geslaagd = pgeslaagd)
 toets <- mutate(toets, cesuur = as.numeric(cesuur))
 
 ##Berekenen kappa
 kappa <- ((KR20)*(toets$scaleSD^2)+(toets$scaleMean-cesuur)^2)/((toets$scaleSD^2) + (toets$scaleMean-cesuur)^2)
 toets <- mutate(toets, kappa = as.numeric(kappa))
-write.csv2(toets, file="toetswaarden.csv")
+write.csv2(toets, file=paste0(Network_directory,"toetswaarden.csv"))
 
 ##Bepaal aantal studenten
 nrst <- toets$nPerson
@@ -183,8 +170,13 @@ itemanalyse <- itemanalyse[,c(5,6,7,8,1,4,2,3,9,10,11,12,13)]
 itemanalyse[,9:13] <- sapply(itemanalyse[,9:13], as.character)
 itemanalyse[,9:13][is.na(itemanalyse[,9:13])] <- " "
 
+## Voeg gebruikte sleutel toe aan itemanalyse
+tsleutel <- as.data.frame(t(sleutel))
+itemanalyse <- cbind(tsleutel, itemanalyse)
+itemanalyse <- rename(itemanalyse, Key = V1)
+
 ##Schrijf itemanalyse weg naar csv
-write.csv2(itemanalyse, row.names = vrn , file="itemanalyse.csv")
+write.csv2(itemanalyse, row.names = vrn , file=paste0(Network_directory,"itemanalyse.csv"))
 
 #Toon kappa
 kappa

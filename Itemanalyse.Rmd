@@ -1,0 +1,121 @@
+---
+title: "`r thetitle`"
+date: '`r datum`'
+output: 
+    pdf_document
+
+---
+
+**Contactgegevens**:
+Tentamenservice@vu.nl / (020) 59 83146
+
+**Toetswaarden**:
+
+```{r, echo=FALSE}
+itemanalyse <- read.csv2(paste0(Network_directory,"itemanalyse.csv"))
+names(itemanalyse)[names(itemanalyse) == "X"] <- "Q"
+itemanalyse[,11:15] <- sapply(itemanalyse[,11:15], as.character)
+itemanalyse[,11:15][is.na(itemanalyse[,11:15])] <- " "
+toetswaarden <- read.csv2(paste0(Network_directory,"toetswaarden.csv"))
+toetswaarden <- subset(toetswaarden, select=-c(X))
+toetswaarden <- round(toetswaarden, digits = 2)
+studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
+
+
+names(toetswaarden) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
+
+toetswaarden$`Aantal vragen` <- toString(toetswaarden$`Aantal vragen`)
+toetswaarden$`Aantal studenten` <- toString(toetswaarden$`Aantal studenten`)
+
+toetswaardent <- as.data.frame(t(toetswaarden))
+
+library('knitr')
+```
+
+
+```{r, echo=FALSE}
+
+kable(toetswaardent, digits = 2, "markdown", row.names = T, col.names = "")
+
+```
+
+##Itemmaten en overzicht van de gekozen alternatieven##
+
+
+```{r, echo=FALSE}
+
+kable(itemanalyse, digits = 2, "markdown", row.names = F)
+
+```
+
+* A = een ander alternatief wellicht ook goed
+* B = onduidelijke vraag of foute sleutel
+* C = stof niet bekend
+* D = te moeilijk item of detailvraag
+* E = zwak item
+
+\pagebreak
+
+##Histogram met de ruwe studentscores##
+
+* De blauwe lijn is de gemiddelde score op de toets
+* De rode lijn is de cesuurscore
+
+```{r, echo=FALSE}
+library(ggplot2)
+p <- ggplot(studentscores, aes(totaal_score))+
+  geom_histogram(binwidth = 1)+
+xlim(0, as.numeric(toetswaarden$`Aantal vragen`)) +
+geom_vline(xintercept = toetswaarden$`Gemiddelde score`, color="blue")
+p + geom_vline(xintercept = cesuur, color="red")
+
+
+```
+
+\pagebreak
+
+##Plot van de P-waarden en Rir-waarden van de vragen##
+
+```{r, echo=FALSE}
+
+library(ggplot2)
+library(ggrepel)
+
+set.seed(42)
+ggplot(itemanalyse, aes(rir, P_waarde)) + geom_point(alpha=0.5) + geom_vline(xintercept = 0.1, col="orange") + 
+ geom_hline(yintercept = 0.3, colour="red") + labs(x = "Rir waarde", y = "P waarde") + 
+  geom_text_repel(aes(rir, P_waarde, label = Q)) + ylim(0,1) +
+  theme_classic(base_size = 16)
+
+```
+
+
+\pagebreak
+
+
+##Toelichting##
+
+**Betrouwbaarheid KR-20/alpha**:
+Een maat voor de betrouwbaarheid/consistentie van het meetinstrument; de mate waarin
+dezelfde toetsscores worden verkregen bij herhaalde afname onder soortgelijke condities.
+
+**P-gem:**
+De proportie studenten die het juiste alternatief heeft gekozen; een maat voor de
+moeilijkheidsgraad van het item.
+
+**P'-gem:**
+De proportie studenten die het juiste alternatief heeft gekozen; gecorrigeerd voor kans; een maat voor de
+proportie kennis van de stof in de getoetste groep
+
+**rir:**
+De correlatie tussen de itemscores en de scores op de rest van de items (zonder het
+desbetreffende item); een maat voor het discriminerend vermogen van het item/
+onderscheidend vermogen tussen studenten met (meer) kennis van de stof en studenten met
+minder kennis. Een negatieve Rir-waarde geeft aan dat studenten die op de overige items
+van de toets relatief goed scoren, slechter scoren op het desbetreffende item dan de
+relatief slecht scorende studenten.
+
+**New Alpha**
+Nieuwe betrouwbaarheid als de betreffende vraag verwijderd zou worden uit de toets
+
+

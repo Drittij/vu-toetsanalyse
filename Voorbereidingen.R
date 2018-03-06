@@ -36,6 +36,9 @@ if(!require(readxl)){install.packages("readxl")}
 if(!require(purrr)){install.packages("purrr")}
 if(!require(knitr)){install.packages("knitr")}
 if(!require(xlsx)){install.packages("xlsx")}
+if(!require(tidyverse)){install.packages("tidyverse")}
+if(!require(subscore)){install.packages("subscore")}
+if(!require(difNLR)){install.packages("difNLR")}
 
 ## laden libraries
 library(stringr)
@@ -50,6 +53,9 @@ library(purrr)
 library(knitr)
 library(xlsx)
 library(CTT)
+library(tidyverse)
+library(subscore)
+library(difNLR)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
 Network_directory_WIN <- "G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
@@ -122,7 +128,7 @@ score_daniel <- function (items, key, output.scored = TRUE, ID = NA, rel = TRUE,
   scores <- rowSums(scored)
   names(scores) <- paste("P", c(seq(1:nrow(items))), sep = "")
   if (!rel == FALSE) 
-    reli <- reliability(scored)
+    reli <- CTT:: reliability(scored)
   if (output.scored == FALSE & rel == FALSE) 
     out <- list(score = scores)
   if (output.scored == FALSE & rel == TRUE) 
