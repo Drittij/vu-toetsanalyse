@@ -182,6 +182,9 @@ write.csv2(toets, file=paste0(Network_directory,"toetswaarden.csv"))
 ##Bepaal aantal studenten
 nrst <- toets$nPerson
 
+## Vervang NA in data door lege cel
+data[is.na(data)] <- " "
+
 ##Toevoegen A-waarde aan itemanalyse
 itemanalyse["A"] <- NA
 itemanalyse["B"] <- NA

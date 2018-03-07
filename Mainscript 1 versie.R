@@ -49,11 +49,18 @@ cesuur <- dlgInput("Wat is de cesuur? ", Sys.info()["cesuur"])$res
 cesuur <- as.numeric(cesuur)
 
 ##Open databestand
-teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", 
-                          fileEncoding="utf-16")
+teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
+
+## Indien openen databestand niet goed gaat, probeer onderstaande regel
+# teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", 
+#                           fileEncoding="utf-16")
 
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
+
+##Verwijder vragen uit dataset (optioneel te gebruiken)
+# nrq_nieuw <- 48
+# delete <- c("V5", "V15")
 
 ################################################################################
 ## 2. MANIPULEREN
