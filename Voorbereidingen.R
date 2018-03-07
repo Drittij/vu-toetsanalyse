@@ -39,6 +39,8 @@ if(!require(xlsx)){install.packages("xlsx")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(subscore)){install.packages("subscore")}
 if(!require(difNLR)){install.packages("difNLR")}
+if(!require(BSDA)){install.packages("BSDA")}
+
 
 ## laden libraries
 library(stringr)
@@ -56,6 +58,7 @@ library(CTT)
 library(tidyverse)
 library(subscore)
 library(difNLR)
+library(BSDA)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
 Network_directory_WIN <- "G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
@@ -71,7 +74,7 @@ Network_directory
 
 
 ## Functie om vragen na te kijken (met meerdere antwoorden goed)
-score_daniel <- function (items, key, output.scored = TRUE, ID = NA, rel = TRUE, 
+score_mc <- function (items, key, output.scored = TRUE, ID = NA, rel = TRUE, 
                           multiKeySep = "none", multiKeyScore = c("or", "dich")) 
 {
   t <- as.vector(ID)

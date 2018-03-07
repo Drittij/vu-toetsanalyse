@@ -21,7 +21,6 @@ toetswaarden <- subset(toetswaarden, select=-c(X))
 toetswaarden <- round(toetswaarden, digits = 2)
 studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
 
-
 names(toetswaarden) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
 
 toetswaarden$`Aantal vragen` <- toString(toetswaarden$`Aantal vragen`)
