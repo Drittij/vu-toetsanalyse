@@ -36,10 +36,12 @@ if(!require(readxl)){install.packages("readxl")}
 if(!require(purrr)){install.packages("purrr")}
 if(!require(knitr)){install.packages("knitr")}
 if(!require(xlsx)){install.packages("xlsx")}
+if(!require(reshape2)){install.packages("reshape2")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(subscore)){install.packages("subscore")}
 if(!require(difNLR)){install.packages("difNLR")}
 if(!require(BSDA)){install.packages("BSDA")}
+if(!require(ggrepel)){install.packages("ggrepel")}
 
 
 ## laden libraries
@@ -54,11 +56,13 @@ library(readxl)
 library(purrr)
 library(knitr)
 library(xlsx)
+library(reshape2)
 library(CTT)
 library(tidyverse)
 library(subscore)
 library(difNLR)
 library(BSDA)
+library(ggrepel)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
 Network_directory_WIN <- "G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/"

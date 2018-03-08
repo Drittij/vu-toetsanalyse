@@ -1,0 +1,74 @@
+---
+title: "`r thetitle`"
+output: 
+   pdf_document
+
+---
+
+**Contactgegevens**:
+Tentamenservice@vu.nl / (020) 59 83146
+
+**Toetswaarden**:
+
+```{r, echo=FALSE}
+itemanalyse <- read.csv2(paste0(Network_directory,"itemanalyse.csv"))
+names(itemanalyse)[names(itemanalyse) == "X"] <- "Q"
+toetswaarden <- read.csv2(paste0(Network_directory,"toetswaarden.csv"))
+toetswaarden <- subset(toetswaarden, select=-c(X))
+toetswaarden <- round(toetswaarden, digits = 2)
+studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
+
+toetswaardent <- as.data.frame(t(toetswaarden))
+
+library('knitr')
+```
+
+
+```{r, echo=FALSE}
+
+kable(toetswaardent, digits = 2, "markdown", row.names = T, col.names = "")
+
+```
+
+##Itemmaten
+
+```{r, echo=FALSE}
+
+kable(itemanalyse, digits = 2, "markdown", row.names = F)
+
+```
+
+
+\pagebreak
+
+##Histogram met de ruwe studentscores##
+
+```{r, echo=FALSE}
+hist(scores$studentscores, xlab="Studentscores", ylab="Aantal studenten", xlim=range(0:maxtest), main = paste("Histogram studentscores"))
+
+```
+
+\pagebreak
+
+##Plot van de P-waarden en Rir-waarden van de vragen##
+
+```{r, echo=FALSE}
+
+set.seed(42)
+ggplot(itemanalyse, aes(rir, P)) + 
+     geom_rect(data=itemanalyse,
+            aes(xmin=-Inf,xmax=max(rir)+0.1,ymin=-Inf,ymax=1),
+                fill="orange") + 
+  geom_rect(data=itemanalyse,
+            aes(xmin=0.2,xmax=max(rir)+0.1,ymin=0.3,ymax=1),
+                fill="lightgreen") + 
+   geom_rect(data=itemanalyse,
+            aes(xmin=-Inf,xmax=0.2,ymin=-Inf,ymax=0.3),
+                fill="red") + 
+  geom_point(alpha=0.5) + 
+  labs(x = "Rir waarde", y = "P waarde") + 
+  geom_text_repel(aes(rir, P, label = Q)) + ylim(0,1) +
+  theme_classic(base_size = 16)
+
+```
+
