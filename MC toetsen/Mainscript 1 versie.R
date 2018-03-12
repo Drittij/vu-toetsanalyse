@@ -81,8 +81,14 @@ thetitle=naamtoets; rmarkdown::render("MC toetsen/Itemanalyse.Rmd",
                                   output_file = paste0(Network_directory,
                                                        "Itemanalyse.pdf"))
 
+
 ################################################################################
-## 4. Extra functies
+## 4. Maken inzagerapport per student in pdf
+################################################################################
+source("MC toetsen/Inzage rapport.R")
+
+################################################################################
+## 5. Extra functies
 ################################################################################
 ##Bereken scores per vraaggroep. 
 ## Pas onderstaand script aan welke vragen bij elkaar horen

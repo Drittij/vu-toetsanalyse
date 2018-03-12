@@ -1,0 +1,30 @@
+---
+title: "`r thetitle`"
+output: pdf_document
+---
+
+## Gemiddelde score groep en score student
+
+```{r Overzicht score, echo=FALSE}
+
+Gemiddelde_score <- as.data.frame(toets$scaleMean)
+
+kable(Gemiddelde_score, "markdown", digits = 0,  row.names = F, col.names = "Gemiddelde score")
+
+kable(total_score_selectie, "markdown", row.names = F, col.names = c("Naam", "Studentnummer", "Score", "Cijfer"))
+
+```
+
+## Gegeven antwoorden en antwoordsleutel
+
+
+```{r inzage scores, echo=FALSE}
+studenselectie <- t(teleformdata_new_selectie[3:nrc]) %>% 
+  as.data.frame() %>% 
+  rownames_to_column() %>% 
+  bind_cols(tsleutel)
+
+kable(studenselectie, "markdown", row.names = F, col.names = c("Vraag", "Antwoord", "Antwoordsleutel"))
+
+```
+
