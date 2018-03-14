@@ -13,7 +13,6 @@ Tentamenservice@vu.nl / (020) 59 83146
 
 ```{r, echo=FALSE}
 itemanalyse <- read.csv2(paste0(Network_directory,"itemanalyse.csv"))
-names(itemanalyse)[names(itemanalyse) == "X"] <- "Q"
 itemanalyse[,11:15] <- sapply(itemanalyse[,11:15], as.character)
 itemanalyse[,11:15][is.na(itemanalyse[,11:15])] <- " "
 toetswaarden <- read.csv2(paste0(Network_directory,"toetswaarden.csv"))
@@ -83,7 +82,7 @@ library(ggrepel)
 set.seed(42)
 ggplot(itemanalyse, aes(rir, P_waarde)) + geom_point(alpha=0.5) + geom_vline(xintercept = 0.1, col="orange") + 
  geom_hline(yintercept = 0.3, colour="red") + labs(x = "Rir waarde", y = "P waarde") + 
-  geom_text_repel(aes(rir, P_waarde, label = Q)) + ylim(0,1) +
+  geom_text_repel(aes(rir, P_waarde, label = itemName)) + ylim(0,1) +
   theme_classic(base_size = 16)
 
 ```

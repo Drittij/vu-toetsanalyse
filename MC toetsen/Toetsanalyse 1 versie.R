@@ -110,12 +110,11 @@ for ( i in 1:nrq ) cttICC(scored_data$score, scored_data$scored[,i],
                           colTheme="spartans", cex=1.5, ylab=names(sleutel[i]))
 
 ##Maak itemanalyse
-itemanalyse = data.frame(scored_data$reliability$itemMean, 
-                         scored_data$reliability$pBis, 
-                         scored_data$reliability$alphaIfDeleted) %>% 
-            dplyr::rename(P_waarde = `scored_data.reliability.itemMean`,
-                          rir = scored_data.reliability.pBis,
-                          "New Alpha" = scored_data.reliability.alphaIfDeleted)
+itemanalyse <- itemAnalysis(as.data.frame(scored_data$scored))$itemReport %>% 
+  dplyr:: select(-bis) %>% 
+  dplyr::rename(P_waarde = itemMean,
+                rir = pBis,
+                "New Alpha" = alphaIfDeleted)
 
 ##NA vervangen met nullen
 itemanalyse[is.na(itemanalyse)] <- 0
@@ -192,12 +191,12 @@ for ( i in 1:nrq ) if( (itemanalyse$Rel_P[i] < 0.8)&(itemanalyse$rir[i] < -0.10)
 }
 
 ##Verander kolom volgorde itemanalyse
-itemanalyse <- itemanalyse %>% dplyr::select(A, B, C, D, P_waarde, Rel_P, rir,
+itemanalyse <- itemanalyse %>% dplyr::select(itemName, A, B, C, D, P_waarde, Rel_P, rir,
                                              `New Alpha`, .A, .B, .C, .D, .E)
 
 ##Verwijder NA's uit itemanalyse
-itemanalyse[,9:13] <- sapply(itemanalyse[,9:13], as.character)
-itemanalyse[,9:13][is.na(itemanalyse[,9:13])] <- " "
+itemanalyse[,10:14] <- sapply(itemanalyse[,10:14], as.character)
+itemanalyse[,10:14][is.na(itemanalyse[,10:14])] <- " "
 
 ## Voeg gebruikte sleutel toe aan itemanalyse
 tsleutel <- as.data.frame(t(sleutel))
@@ -205,5 +204,5 @@ itemanalyse <- cbind(tsleutel, itemanalyse) %>%
               dplyr:: rename(Key = V1)
 
 ##Schrijf itemanalyse weg naar csv
-write.csv2(itemanalyse, row.names = vrn , file=paste0(Network_directory,
+write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
                                                       "itemanalyse.csv"))

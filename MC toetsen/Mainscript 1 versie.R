@@ -110,6 +110,10 @@ par(mfrow=c(1,1))
 corP <- psych:: polychoric(scored_data$scored) 
 corrplot:: corrplot(corP$rho) 
 
+## Analyse A-waarden (The point-biserial correlation between that reponse 
+## and the total score with that item removed)
+disanalyse <- distractorAnalysis(data, sleutel)
+
 ################################################################################
 ## EINDE
 ################################################################################
