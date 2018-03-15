@@ -118,11 +118,10 @@ scored_data <- score_mc(data, sleutel, multiKeySep = ",",
 scored_datax <- cbind(studentnummers_namen, scored_data$scored)
 
 ##Toevoegen studentnummers aan totaalscore student
-total_score <- cbind(studentnummers_namen, scored_data$score) %>% 
-  dplyr::rename(totaal_score = `scored_data$score`)
+total_score <- cbind(studentnummers_namen, scored_data[1])
 
 ##Transformeer scores naar cijfers
-total_score <- mutate(total_score, cijfer = (10-(nrq-total_score$totaal_score)/(nrq-cesuur)*(10-5.5)))
+total_score <- mutate(total_score, cijfer = (10-(nrq-total_score$score)/(nrq-cesuur)*(10-5.5)))
 total_score <-  total_score %>% mutate(cijfer = replace(cijfer, cijfer<1, 1))
 
 ##Wegschrijven score per student naar csv file
@@ -130,12 +129,12 @@ write.csv2(total_score, file=paste0(Network_directory,"results_student.csv"),
            row.names=FALSE)
 
 ## Toon cronbachs alpha
-KR20 <- scored_data$reliability$alpha
+KR20 <- purrr:: pluck(scored_data, 2, "alpha")
+# KR20 <- scored_data$reliability$alpha
 
 ##Bereken KR-20 (75)
 ifactor <- 75/nrq
-KR20_75 <- spearman.brown(KR20, input = ifactor, n.or.r = "n")
-KR20_75 <- KR20_75$r.new
+KR20_75 <- round(CTT:: spearman.brown(KR20, input = ifactor, n.or.r = "n")$r.new, digits = 2)
 
 ##Item characteristic curves (ICC) voor alle items op 1 pagina 
 ##(verwijder eerste 2 regels script om losse plots te creeren)
@@ -145,12 +144,11 @@ for ( i in 1:nrq ) cttICC(scored_data$score, scored_data$scored[,i],
                           colTheme="spartans", cex=1.5, ylab=names(sleutel[i]))
 
 ##Maak itemanalyse
-itemanalyse = data.frame(scored_data$reliability$itemMean, 
-                         scored_data$reliability$pBis, 
-                         scored_data$reliability$alphaIfDeleted) %>% 
-  dplyr::rename(P_waarde = `scored_data.reliability.itemMean`,
-                rir = scored_data.reliability.pBis,
-                "New Alpha" = scored_data.reliability.alphaIfDeleted)
+itemanalyse <- itemAnalysis(as.data.frame(scored_data$scored), NA.Delete=FALSE)$itemReport %>% 
+  dplyr:: select(-bis) %>% 
+  dplyr::rename(P_waarde = itemMean,
+                rir = pBis,
+                "New Alpha" = alphaIfDeleted)
 
 ##NA vervangen met nullen
 itemanalyse[is.na(itemanalyse)] <- 0
@@ -162,20 +160,23 @@ itemanalyse["Rel_P"] <- NA
 for ( i in 1:nrq ) itemanalyse$Rel_P[i] <- ((-1/(gk-1))*itemanalyse$P_waarde[i]+1-(-1/(gk-1)))
 
 ##Toetswaarden  wegschrijven
-toets <- as.data.frame(scored_data$reliability[1:5])
-toets <- tbl_df(toets)
-toets <- mutate(toets, KR20_75 = KR20_75)
-toets <- toets[,c(1,2,3,6,4,5)]
-mrelp <- summarise(itemanalyse, mean(Rel_P))
-mp <- summarise(itemanalyse, mean(P_waarde))
-toets <- mutate(toets, meanRelP = as.numeric(mrelp), meanP = as.numeric(mp))
 geslaagd <- filter(total_score, cijfer >= 5.5) %>% nrow()
-pgeslaagd <- round(geslaagd/nrow(total_score)*100)
-toets <- mutate(toets, perc_geslaagd = pgeslaagd)
-toets <- mutate(toets, cesuur = as.numeric(cesuur))
+
+toets <- tbl_df(scored_data$reliability[1:5]) %>% round(digits = 2)
+toets <- mutate(toets, KR20_75 = KR20_75) %>% 
+  dplyr:: select(nItem, 
+                 nPerson, 
+                 alpha,
+                 KR20_75,
+                 scaleMean,
+                 scaleSD) %>% 
+  dplyr:: mutate(meanRelP = round(summarise(itemanalyse, mean(Rel_P))$`mean(Rel_P)`, digits = 2),
+                 meanP = round(summarise(itemanalyse, mean(P_waarde))$`mean(P_waarde)`, digits = 2),
+                 perc_geslaagd = paste0(round(geslaagd/nrow(total_score)*100),"%"),
+                 cesuur = cesuur)
 
 ##Berekenen kappa
-kappa <- ((KR20)*(toets$scaleSD^2)+(toets$scaleMean-cesuur)^2)/((toets$scaleSD^2) + (toets$scaleMean-cesuur)^2)
+kappa <- round(((KR20)*(toets$scaleSD^2)+(toets$scaleMean-cesuur)^2)/((toets$scaleSD^2) + (toets$scaleMean-cesuur)^2), digits = 2)
 toets <- mutate(toets, kappa = as.numeric(kappa))
 write.csv2(toets, file=paste0(Network_directory,"toetswaarden.csv"))
 
@@ -183,20 +184,35 @@ write.csv2(toets, file=paste0(Network_directory,"toetswaarden.csv"))
 nrst <- toets$nPerson
 
 ## Vervang NA in data door lege cel
-data[is.na(data)] <- " "
+data[is.na(data)] <- " "  
 
 ##Toevoegen A-waarde aan itemanalyse
 itemanalyse["A"] <- NA
 itemanalyse["B"] <- NA
 itemanalyse["C"] <- NA
-itemanalyse["D"] <- NA
-# itemanalyse["E"] <- NA
+
+if (nra == 4) {
+  itemanalyse["D"] <- NA 
+}
+
+if (nra == 5) {
+  itemanalyse["E"] <- NA
+}
+
 
 for ( i in 1:nrq ) itemanalyse$A[i] <- (sum(str_count(data[,i], "A"))/nrst)
 for ( i in 1:nrq ) itemanalyse$B[i] <- (sum(str_count(data[,i], "B"))/nrst)
 for ( i in 1:nrq ) itemanalyse$C[i] <- (sum(str_count(data[,i], "C"))/nrst)
-for ( i in 1:nrq ) itemanalyse$D[i] <- (sum(str_count(data[,i], "D"))/nrst)
-# for ( i in 1:nrq ) itemanalyse$E[i] <- (sum(str_count(data[,i], "E"))/nrst)
+
+if (nra == 4) {
+  for ( i in 1:nrq ) itemanalyse$D[i] <- (sum(str_count(data[,i], "D"))/nrst)
+}
+
+
+if (nra == 5) {
+  for ( i in 1:nrq ) itemanalyse$E[i] <- (sum(str_count(data[,i], "E"))/nrst)
+}
+
 
 ##Voeg advies column toe aan itemanalyse
 itemanalyse[".A"] <- NA
@@ -227,12 +243,24 @@ for ( i in 1:nrq ) if( (itemanalyse$Rel_P[i] < 0.8)&(itemanalyse$rir[i] < -0.10)
 }
 
 ##Verander kolom volgorde itemanalyse
-itemanalyse <- itemanalyse %>% dplyr::select(A, B, C, D, P_waarde, Rel_P, rir,
-                                             `New Alpha`, .A, .B, .C, .D, .E)
+if (nra == 3) {
+  itemanalyse <- itemanalyse %>% dplyr::select(itemName, A, B, C, P_waarde, Rel_P, rir,
+                                               `New Alpha`, .A, .B, .C, .D, .E)
+}
+
+if (nra == 4) {
+  itemanalyse <- itemanalyse %>% dplyr::select(itemName, A, B, C, D, P_waarde, Rel_P, rir,
+                                               `New Alpha`, .A, .B, .C, .D, .E)
+}
+
+if (nra == 5) {
+  itemanalyse <- itemanalyse %>% dplyr::select(itemName, A, B, C, D, E, P_waarde, Rel_P, rir,
+                                               `New Alpha`, .A, .B, .C, .D, .E)
+}
 
 ##Verwijder NA's uit itemanalyse
-itemanalyse[,9:13] <- sapply(itemanalyse[,9:13], as.character)
-itemanalyse[,9:13][is.na(itemanalyse[,9:13])] <- " "
+itemanalyse[,10:14] <- sapply(itemanalyse[,10:14], as.character)
+itemanalyse[,10:14][is.na(itemanalyse[,10:14])] <- " "
 
 ## Voeg gebruikte sleutel toe aan itemanalyse
 tsleutel <- as.data.frame(t(sleutel))
@@ -240,13 +268,13 @@ itemanalyse <- cbind(tsleutel, itemanalyse) %>%
   dplyr:: rename(Key = V1)
 
 ##Schrijf itemanalyse weg naar csv
-write.csv2(itemanalyse, row.names = vrn , file=paste0(Network_directory,
-                                                      "itemanalyse.csv"))
+write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
+                                                    "itemanalyse.csv"))
 
 
 ##Bereken gemiddelde score en sd per toetsversie
 versie_score <- inner_join(total_score, student_versies, by = "studentnummers") %>% group_by(Toetsversie) %>%
-  summarise(mean=mean(totaal_score), sd=sd(totaal_score), n=n())
+  summarise(mean=mean(score), sd=sd(score), n=n())
 
 ttest <- tsum.test(mean.x=versie_score$mean[1],   s.x=versie_score$sd[1], n.x=versie_score$n[1],
                    mean.y=versie_score$mean[2], s.y=versie_score$sd[1], n.y=versie_score$n[2])

@@ -2,7 +2,7 @@
 title: "`r thetitle`"
 date: '`r datum`'
 output: 
-    pdf_document
+    html_document
 
 ---
 
@@ -17,7 +17,6 @@ itemanalyse[,11:15] <- sapply(itemanalyse[,11:15], as.character)
 itemanalyse[,11:15][is.na(itemanalyse[,11:15])] <- " "
 toetswaarden <- read.csv2(paste0(Network_directory,"toetswaarden.csv"))
 toetswaarden <- subset(toetswaarden, select=-c(X))
-toetswaarden <- round(toetswaarden, digits = 2)
 studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
 
 names(toetswaarden) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
@@ -37,7 +36,7 @@ kable(toetswaardent, digits = 2, "markdown", row.names = T, col.names = "")
 
 ```
 
-##Itemmaten en overzicht van de gekozen alternatieven##
+## Itemmaten en overzicht van de gekozen alternatieven
 
 
 ```{r, echo=FALSE}
@@ -54,14 +53,14 @@ kable(itemanalyse, digits = 2, "markdown", row.names = F)
 
 \pagebreak
 
-##Histogram met de ruwe studentscores##
+## Histogram met de ruwe studentscores
 
 * De blauwe lijn is de gemiddelde score op de toets
 * De rode lijn is de cesuurscore
 
 ```{r, echo=FALSE}
 library(ggplot2)
-p <- ggplot(studentscores, aes(totaal_score))+
+p <- ggplot(studentscores, aes(score))+
   geom_histogram(binwidth = 1)+
 xlim(0, as.numeric(toetswaarden$`Aantal vragen`)) +
 geom_vline(xintercept = toetswaarden$`Gemiddelde score`, color="blue")
@@ -72,7 +71,7 @@ p + geom_vline(xintercept = cesuur, color="red")
 
 \pagebreak
 
-##Plot van de P-waarden en Rir-waarden van de vragen##
+## Plot van de P-waarden en Rir-waarden van de vragen
 
 ```{r, echo=FALSE}
 
@@ -91,7 +90,7 @@ ggplot(itemanalyse, aes(rir, P_waarde)) + geom_point(alpha=0.5) + geom_vline(xin
 \pagebreak
 
 
-##Toelichting##
+## Toelichting
 
 **Betrouwbaarheid KR-20/alpha**:
 Een maat voor de betrouwbaarheid/consistentie van het meetinstrument; de mate waarin

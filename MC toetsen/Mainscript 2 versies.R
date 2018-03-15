@@ -74,6 +74,10 @@ thetitle=naamtoets; rmarkdown::render("MC toetsen/Itemanalyse.Rmd",
                                       output_file = paste0(Network_directory,
                                                            "Itemanalyse.pdf"))
 
+thetitle=naamtoets; rmarkdown::render("MC toetsen/Itemanalyse.Rmd", 
+                                      output_file = paste0(Network_directory,
+                                                           "Itemanalyse.html"))
+
 ################################################################################
 ## 4. Extra functies
 ################################################################################
@@ -86,8 +90,11 @@ vraag_groep <- mutate(scored_datax,
                       groep2=V5+V6+V7+V8, 
                       groep3=V9+V10+V11+V12)
 
-vraag_groep_score <- dplyr:: select(vraag_groep, studentnummer, 
-                                    groep1, groep2, groep3)
+vraag_groep_score <- dplyr:: select(vraag_groep, 
+                                    studentnummer, 
+                                    groep1, 
+                                    groep2, 
+                                    groep3)
 
 write.csv2(vraag_groep_score, file=paste0(Network_directory,
                                           "vraaggroepen.csv"), row.names=FALSE)
@@ -96,6 +103,11 @@ write.csv2(vraag_groep_score, file=paste0(Network_directory,
 par(mfrow=c(1,1))
 corP <- psych:: polychoric(scored_data$scored) 
 corrplot:: corrplot(corP$rho) 
+
+## Analyse A-waarden (The point-biserial correlation between that reponse 
+## and the total score with that item removed) - we
+disanalyse <- distractorAnalysis(data, sleutel, multiKeySep=",",
+                                 multiKeyScore=c("or","dich"))
 
 ################################################################################
 ## EINDE
