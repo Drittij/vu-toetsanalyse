@@ -2,7 +2,7 @@
 title: "`r thetitle`"
 date: '`r datum`'
 output: 
-    html_document
+    pdf_document
 
 ---
 

@@ -55,8 +55,13 @@ teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
 # teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", 
 #                           fileEncoding="utf-16")
 
+# teleformdata$stud_nr <- teleformdata$ï..stud_nr
+
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
+
+# teleformdata <- teleformdata %>%
+#   dplyr:: select(stud_nr, stud_naam, everything()) %>% dplyr:: select(-`ï..stud_nr`)
 
 ##Verwijder vragen uit dataset (optioneel te gebruiken)
 # nrq_nieuw <- 48
@@ -83,7 +88,7 @@ for (i in seq_along(ll)) {
 
 thetitle=naamtoets; rmarkdown::render("MC toetsen/Itemanalyse.Rmd", 
                                       output_file = paste0(Network_directory,
-                                                           "Itemanalyse.html"))
+                                                           "Itemanalyse.pdf"))
 
 
 ################################################################################
