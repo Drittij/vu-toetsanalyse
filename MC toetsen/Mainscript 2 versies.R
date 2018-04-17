@@ -55,6 +55,8 @@ teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
 
+# teleformdata <- dplyr::rename(teleformdata, V1 = ï..V1)
+
 ################################################################################
 ## 2. MANIPULEREN
 ################################################################################

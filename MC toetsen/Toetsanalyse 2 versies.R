@@ -67,11 +67,6 @@ colnames(studentnummers_namen) <- c("studentnummers", "studentnamen")
 teleformdataB_new <- teleformdataB_new %>% dplyr:: select(-c(stud_nr, stud_naam))
 teleformdataA_new <- teleformdataA_new %>% dplyr:: select(-c(stud_nr, stud_naam))
 
-# ##Verwijder vragen uit dataset (optioneel te gebruiken)
-# teleformdataA_new <- select(teleformdata_new, -V42, -V52)
-# nrq <- 50
-# nrc <- nrq+2
-
 ##Zet data B versie in volgorde Aversie en verander kolomnamen zodat deze 
 ##overeen komen met A versie
 teleformdataB_correct <- teleformdataB_new[,orderB]
@@ -98,6 +93,11 @@ teleformdata_correct <- rbind(teleformdataA, teleformdataB_correct)
 ## (=studentnamen en studentnummers)
 data <- teleformdata_correct %>% 
   dplyr:: select(-c(stud_nr, stud_naam))
+
+##Verwijder vragen uit dataset (optioneel te gebruiken)
+# data <- dplyr:: select(data, -V5, -V13, -V14, -V17, -V30, -V36)
+# nrq <- 34
+# nrc <- nrq+2
 
 write.csv2(data, file=paste0(Network_directory,"data.csv"), row.names=FALSE)
 
@@ -266,6 +266,8 @@ itemanalyse[,10:14][is.na(itemanalyse[,10:14])] <- " "
 tsleutel <- as.data.frame(t(sleutel))
 itemanalyse <- cbind(tsleutel, itemanalyse) %>% 
   dplyr:: rename(Key = V1)
+
+itemanalyse <- dplyr:: mutate(itemanalyse, itemName = colnames(sleutel))
 
 ##Schrijf itemanalyse weg naar csv
 write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
