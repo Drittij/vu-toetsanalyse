@@ -30,6 +30,8 @@ is.na(data) <- data==''
 scored_data <- score_mc(data, sleutel, multiKeySep = ",", 
                         output.scored = TRUE, rel = TRUE)
 
+studentnummers_namen <- teleformdata_correct[1:2]
+
 ##Toevoegen studentnummers en namen aan score data
 scored_datax <- cbind(studentnummers_namen, scored_data$scored)
 

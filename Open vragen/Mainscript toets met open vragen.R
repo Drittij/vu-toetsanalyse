@@ -20,6 +20,7 @@
 ################################################################################    
 ### Geschiedenis:
 ### 08-03-2018: DD: Aanmaken bestand
+### 23-5-2018: DD: Code ingekort met pipes
 ################################################################################
 
 ############################################################################
@@ -27,7 +28,6 @@
 ############################################################################
 ## Lees de packages, functies en libraries in
 source("Voorbereidingen.R")
-
 
 ################################################################################
 ## 1. INLEZEN
@@ -46,7 +46,6 @@ datum <- dlgInput("Datum afname toets ", Sys.info()["datumtoets"])$res
 cesuur <- dlgInput("Wat is de cesuur? ", Sys.info()["cesuur"])$res
 cesuur <- as.numeric(cesuur)
 
-
 ##Inlezen dataset
 scores <- read.csv2(paste0(Network_directory,databestand), row.names = 1)
 
@@ -61,62 +60,50 @@ nrq <- ncol(scores)
 ################################################################################
 ## 2. MANIPULEREN
 ################################################################################
-
 ##Lege cellen vervangen met nullen
 scores[is.na(scores)] <- 0
 
 ##Maken itemanalyse (o.a. cronbachs alpha en testgemiddelde)
 itemanalyse <- psych:: alpha(scores[,1:nrq])
 
-##Verwijder niet relevante kolommen uit item analyse
-itemanalyse_rapport <- itemanalyse$item.stats
-itemanalyse_rapport <- subset(itemanalyse_rapport, select=c(n, r.drop, mean, sd))
-
-##Verander kolom namen van itemanalyse
-names(itemanalyse_rapport)[names(itemanalyse_rapport) == "r.drop"] <- "rir"
-
-## Voeg maximale score per vraag toe aan itemanalyse rapport
-itemanalyse_rapport$Max.score <- maxscore$maxscore
-
-## Bereken p waarde per vraag
-itemanalyse_rapport$P <- itemanalyse_rapport$mean/itemanalyse_rapport$Max.score
-itemanalyse_rapport <- dplyr:: select(itemanalyse_rapport, n, P, 
-                                      rir, Max.score, mean, sd)
+##Verwijder niet relevante kolommen uit item analyse en bereken p waarden
+itemanalyse_rapport <- itemanalyse$item.stats %>% dplyr:: select(n, r.drop, mean, sd) %>% 
+                                                  dplyr:: rename(rir = r.drop) %>% 
+                                                  dplyr:: mutate(Max.score = maxscore$maxscore,
+                                                                 P = mean/Max.score) %>% 
+                                                  dplyr:: select(n, P, rir, Max.score, mean, sd)
 
 ##Extract cronbachs alpha
 itemanalyse1 <- itemanalyse$total
-ca <- itemanalyse1$raw_alpha
 
 ##Berekenen scores per student
 scores$studentscores <- rowSums(scores[1:nrq])
-
-##Bereken testgemiddelde
-tmean <- mean(scores$studentscores)
-
-##Berekenen geobserveerde variantie
-obvar <- var(scores$studentscores)
 
 ##Toon Histogram scoreverdeling
 hist(scores$studentscores, xlab="Studentscores", ylab="Aantal studenten", 
      xlim=range(0:maxtest), main = paste("Histogram studentscores"))
 
 ##Berekenen kappa
+ca <- itemanalyse1$raw_alpha
+tmean <- mean(scores$studentscores)
+obvar <- var(scores$studentscores)
 kappa <- ((ca)*(obvar)+(tmean-cesuur)^2)/((obvar) + (tmean-cesuur)^2)
 
-#Voeg kappa toe aan itemanalyse1
-itemanalyse1$kappa <- kappa
-
-## Aanvullen itemanalyse1 / toetswaarden
-itemanalyse1$`gemiddelde score` <- mean(scores$studentscores)
-itemanalyse1$sd <- sd(scores$studentscores)
-itemanalyse1$`aantal studenten` <- nrow(scores)
-itemanalyse1$`aantal vragen` <- nrq
-itemanalyse1 <- dplyr:: select(itemanalyse1, `aantal studenten`, 
-                               `aantal vragen`, raw_alpha, kappa, 
-                               `gemiddelde score`, sd)
-itemanalyse1$`P-Gem` <- itemanalyse1$`gemiddelde score`/sum(maxscore$maxscore)
-itemanalyse1$Max.score <- sum(maxscore$maxscore)
-itemanalyse1$cesuur <- cesuur
+## Aanvullen toetswaarden
+itemanalyse1 <- itemanalyse1 %>% mutate(kappa = kappa, 
+                                        `gemiddelde score` = mean(scores$studentscores),
+                                        sd = sd(scores$studentscores),
+                                        `aantal studenten` = nrow(scores),
+                                        `aantal vragen` = nrq) %>% 
+                                dplyr:: select(`aantal studenten`, 
+                                       `aantal vragen`, 
+                                       raw_alpha, 
+                                       kappa, 
+                                       `gemiddelde score`, 
+                                       sd) %>% 
+                                mutate(`P-Gem` = `gemiddelde score`/sum(maxscore$maxscore),
+                                       Max.score = sum(maxscore$maxscore),
+                                       cesuur = cesuur)
 
 ## Wegschrijven bestanden voor rapport
 write.csv2(itemanalyse1, paste0(Network_directory,"toetswaarden.csv"))
@@ -134,7 +121,6 @@ thetitle=naamtoets; rmarkdown::render("Open vragen/Itemanalyse.Rmd",
 ################################################################################
 ## 4. Extra functies
 ################################################################################
-
 ##Maak itemcurves op basis van percentiel groepen
 
 #Bereken totaalscore per student
@@ -157,6 +143,9 @@ names = c(colnames(scores[1:nrq]))
 colnames(RankVdf) = names
 
 ##Bereken p-waarde per vraag per rankgroep
+##Transpose max score per vraag
+nmaxscore <- t(maxscore)
+nmaxscore <- as.data.frame(nmaxscore)
 for (i in 1:5) RankVdf[i,] = RankVdf[i,]/nmaxscore
 
 RankVdf <- dplyr:: mutate(RankVdf, Rankgroep=c("rankgroup1", "rankgroup2", 

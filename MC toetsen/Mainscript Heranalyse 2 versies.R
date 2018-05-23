@@ -56,7 +56,7 @@ teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
 
-# teleformdata <- dplyr::rename(teleformdata, V1 = ï..V1)
+teleformdata <- dplyr::rename(teleformdata, V1 = ï..V1)
 
 ################################################################################
 ## 2. MANIPULEREN stap 1
@@ -77,6 +77,8 @@ for (i in seq_along(ll)) {
 data <- dplyr:: select(data, -V5, -V13, -V14, -V17, -V30, -V36)
 nrq <- 34
 nrc <- nrq+2
+
+# data <- dplyr::rename(data, V1 = ï..V1)
 
 write.csv2(data, file=paste0(Network_directory,"data.csv"), row.names=FALSE)
 
