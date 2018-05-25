@@ -36,7 +36,7 @@ teleformdata_onbekend <- teleformdata %>% dplyr:: filter(Toetsversie >2)
 ##Maak bestand met studentnummer + Toetsversie voor latere koppeling aan score
 student_versies <- dplyr:: select(teleformdata, studentnummers=stud_nr, 
                                   Toetsversie) %>% 
-                   dplyr::filter(studentnummers > 0)
+                   dplyr::filter(studentnummers > 0, Toetsversie < 3)
 
 ##Maak ruwe data file: letter data + sleutel
 teleformdata_new <- teleformdata[ c(1:nrc) ]
@@ -94,6 +94,10 @@ teleformdata_correct <- rbind(teleformdataA, teleformdataB_correct)
 data <- teleformdata_correct %>% 
   dplyr:: select(-c(stud_nr, stud_naam))
 
+## Sla studentnummers en namen op, voor latere koppeling aan gescoorde data
+studentnummers_namen <- teleformdata_correct %>% 
+  dplyr:: select(c(stud_nr, stud_naam))
+
 ##Verwijder vragen uit dataset (optioneel te gebruiken)
 # data <- dplyr:: select(data, -V5, -V13, -V14, -V17, -V30, -V36)
 # nrq <- 34
@@ -119,6 +123,7 @@ scored_datax <- cbind(studentnummers_namen, scored_data$scored)
 
 ##Toevoegen studentnummers aan totaalscore student
 total_score <- cbind(studentnummers_namen, scored_data[1])
+total_score <- total_score %>% rename(studentnummers = stud_nr)
 
 ##Transformeer scores naar cijfers
 total_score <- mutate(total_score, cijfer = (10-(nrq-total_score$score)/(nrq-cesuur)*(10-5.5)))
@@ -272,7 +277,6 @@ itemanalyse <- dplyr:: mutate(itemanalyse, itemName = colnames(sleutel))
 ##Schrijf itemanalyse weg naar csv
 write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
                                                     "itemanalyse.csv"))
-
 
 ##Bereken gemiddelde score en sd per toetsversie
 versie_score <- inner_join(total_score, student_versies, by = "studentnummers") %>% group_by(Toetsversie) %>%
