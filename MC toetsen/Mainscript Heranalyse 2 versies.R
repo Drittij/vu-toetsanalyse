@@ -29,7 +29,6 @@
 ## Lees de packages, functies en libraries in
 source("Voorbereidingen.R")
 
-
 ################################################################################
 ## 1. INLEZEN
 ################################################################################
@@ -49,14 +48,10 @@ cesuur <- dlgInput("Wat is de cesuur? ", Sys.info()["cesuur"])$res
 cesuur <- as.numeric(cesuur)
 
 ##Open databestand
-# teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", 
-#                           fileEncoding="utf-16")
-teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
+teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
 
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
-
-teleformdata <- dplyr::rename(teleformdata, V1 = ï..V1)
 
 ################################################################################
 ## 2. MANIPULEREN stap 1
@@ -78,14 +73,13 @@ data <- dplyr:: select(data, -V5, -V13, -V14, -V17, -V30, -V36)
 nrq <- 34
 nrc <- nrq+2
 
-# data <- dplyr::rename(data, V1 = ï..V1)
-
 write.csv2(data, file=paste0(Network_directory,"data.csv"), row.names=FALSE)
 
 ## Upload eventueel aangepaste/nieuwe sleutel
 ## Om meerdere antwoorden goed te rekenen lever komma gescheiden aan
-## Verwijder ook de verwijderde vragen
+## LET OP!! Verwijder ook de verwijderde vragen
 sleutel <- read.csv2(paste0(Network_directory,"sleutel_nieuw.csv"))
+# sleutel <- readxl:: read_xlsx(paste0(Network_directory,"sleutel_nieuw.xlsx"))
 
 ################################################################################
 ## 4. ANALYSEREN stap 2

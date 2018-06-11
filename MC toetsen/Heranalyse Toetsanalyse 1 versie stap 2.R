@@ -186,6 +186,8 @@ tsleutel <- as.data.frame(t(sleutel))
 itemanalyse <- cbind(tsleutel, itemanalyse) %>% 
   dplyr:: rename(Key = V1)
 
+itemanalyse <- dplyr:: mutate(itemanalyse, itemName = colnames(sleutel))
+
 ##Schrijf itemanalyse weg naar csv
 write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
                                                     "itemanalyse.csv"))

@@ -28,7 +28,6 @@
 ## Lees de packages, functies en libraries in
 source("Voorbereidingen.R")
 
-
 ################################################################################
 ## 1. INLEZEN
 ################################################################################
@@ -48,15 +47,10 @@ cesuur <- dlgInput("Wat is de cesuur? ", Sys.info()["cesuur"])$res
 cesuur <- as.numeric(cesuur)
 
 ##Open databestand
-# teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", 
-#                           fileEncoding="utf-16")
-teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
-# 
-teleformdata <- dplyr::rename(teleformdata, stud_nr = ï..stud_nr)
+teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
 
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
-
 
 ################################################################################
 ## 2. MANIPULEREN

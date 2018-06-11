@@ -55,13 +55,14 @@ write.csv2(sleutel, file=paste0(Network_directory,"sleutel.csv"),
 
 ##Bepaal nieuwe volgorde vragen B naar A versie
 volgorde <- read.csv2(paste0(Network_directory,"Volgordeomzetting.csv"))
+# volgorde <- read_xlsx(paste0(Network_directory,"Volgordeomzetting.xlsx")) %>% map_df(as.integer)
 orderB <- as.vector(volgorde$Bversie)
 
-##Extraheer studentnummers en namen
-studentnummers_namen <- teleformdata %>%  
-  dplyr:: filter(stud_nr > 0, Toetsversie <=2) %>% 
-  dplyr:: select(stud_nr, stud_naam) 
-colnames(studentnummers_namen) <- c("studentnummers", "studentnamen")
+##Extraheer studentnummers en namen (wordt later gedaan, niet meer nodig)
+# studentnummers_namen <- teleformdata %>%  
+#   dplyr:: filter(stud_nr > 0, Toetsversie <=2) %>% 
+#   dplyr:: select(stud_nr, stud_naam) 
+# colnames(studentnummers_namen) <- c("studentnummers", "studentnamen")
 
 ##Verwijder eerste twee kolommen (=studentnamen en studentnummers)
 teleformdataB_new <- teleformdataB_new %>% dplyr:: select(-c(stud_nr, stud_naam))

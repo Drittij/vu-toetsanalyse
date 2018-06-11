@@ -15,7 +15,8 @@
 ### 
 ################################################################################
 ### TODO:
-### 1) Geen
+### 1) Toevoegen standaardmeetfout in rapport: 
+### Voorbeeld: Standaard Afwijking score * sqrt(1-KR20)
 ###
 ################################################################################    
 ### Geschiedenis:
@@ -49,23 +50,19 @@ cesuur <- dlgInput("Wat is de cesuur? ", Sys.info()["cesuur"])$res
 cesuur <- as.numeric(cesuur)
 
 ##Open databestand
-teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t")
-
-## Indien openen databestand niet goed gaat, probeer onderstaande regel
-# teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", 
-#                           fileEncoding="utf-16")
-
-# teleformdata$stud_nr <- teleformdata$ï..stud_nr
+teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
 
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
 
-# teleformdata <- teleformdata %>%
-#   dplyr:: select(stud_nr, stud_naam, everything()) %>% dplyr:: select(-`ï..stud_nr`)
-
 ##Verwijder vragen uit dataset (optioneel te gebruiken)
 # nrq_nieuw <- 48
 # delete <- c("V5", "V15")
+
+# teleformdataA <- filter(teleformdata, Toetsversie == 1)
+# teleformdataB <- filter(teleformdata, Toetsversie == 2)
+# 
+# teleformdata <- teleformdataB
 
 ################################################################################
 ## 2. MANIPULEREN
