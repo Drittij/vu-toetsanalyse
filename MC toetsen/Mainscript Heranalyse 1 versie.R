@@ -5,7 +5,7 @@
 ###
 ### Bestandsnaam: Mainscript Heranalyse 1 versie.R
 ### Doel: Startscript voor het inlezen en analyse van teleform data voor 
-### tentamen met 3, 4 of 5 antwoordalternatieven
+### tentamen met 2:6 antwoordalternatieven
 ### 
 ### Afhankelijkheden: geen
 ###

@@ -12,19 +12,9 @@ Tentamenservice@vu.nl / (020) 59 83146
 **Toetswaarden**:
 
 ```{r, echo=FALSE}
-itemanalyse <- read.csv2(paste0(Network_directory,"itemanalyse.csv"))
-itemanalyse[,11:15] <- sapply(itemanalyse[,11:15], as.character)
-itemanalyse[,11:15][is.na(itemanalyse[,11:15])] <- " "
-toetswaarden <- read.csv2(paste0(Network_directory,"toetswaarden.csv"))
-toetswaarden <- subset(toetswaarden, select=-c(X))
 studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
-
-names(toetswaarden) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
-
-toetswaarden$`Aantal vragen` <- toString(toetswaarden$`Aantal vragen`)
-toetswaarden$`Aantal studenten` <- toString(toetswaarden$`Aantal studenten`)
-
-toetswaardent <- as.data.frame(t(toetswaarden))
+names(toets) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
+toetswaardent <- as.data.frame(t(toets))
 
 library('knitr')
 ```
@@ -62,8 +52,8 @@ kable(itemanalyse, digits = 2, "markdown", row.names = F)
 library(ggplot2)
 p <- ggplot(studentscores, aes(score))+
   geom_histogram(binwidth = 1)+
-xlim(0, as.numeric(toetswaarden$`Aantal vragen`)) +
-geom_vline(xintercept = toetswaarden$`Gemiddelde score`, color="blue")
+xlim(0, as.numeric(toets$`Aantal vragen`)) +
+geom_vline(xintercept = toets$`Gemiddelde score`, color="blue")
 p + geom_vline(xintercept = cesuur, color="red")
 
 

@@ -31,10 +31,10 @@ gk <- 1/nra
 ##Maak ruwe data file zonder lege kolommen: letter data + sleutel
 teleformdata_new <- teleformdata[ c(1:nrc) ]
 
-##Verwijder vragen uit dataset (optioneel te gebruiken)
-teleformdata_new[delete] <- list(NULL)
-nrq <- nrq_nieuw
-nrc <- nrq+2
+# ##Verwijder vragen uit dataset (optioneel te gebruiken)
+# teleformdata_new[delete] <- list(NULL)
+# nrq <- nrq_nieuw
+# nrc <- nrq+2
 
 ##Defineer vraagnamen aanwezige vragen
 vrn <- colnames(teleformdata_new[3:nrc])
