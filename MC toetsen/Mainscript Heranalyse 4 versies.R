@@ -1,26 +1,25 @@
 ################################################################################
-### Mainscript Heranalyse 2 versies.R
+### Mainscript Heranalyse 4 versies.R
 ################################################################################
 ### R code voor Tentamenanalyse Vrije Universiteit Amsterdam
 ###
-### Bestandsnaam: Mainscript Heranalyse 2 versies.R
+### Bestandsnaam: Mainscript Heranalyse 4 versies.R
 ### Doel: Startscript voor het inlezen en analyse van teleform data voor 
-### tentamen met 2 versies en 3, 4 of 5 antwoordalternatieven
+### tentamen met 4 versies
 ### 
 ### Afhankelijkheden: geen
 ###
 ### Gebruikte datasets: ruwe data .DEL bestand, nieuwe sleutel in csv en 
 ###                     volgordeomzetting in csv
 ###
-### Opmerkingen: getest met inhsorv (zie tentamenarchief 2017-2018)
+### Opmerkingen: 
 ### 
 ################################################################################
-### TODO:
-### 1) Geschikt maken voor 3 of 4 verschillende versies
+### TODO: Moet nog getest worden
 ###
 ################################################################################    
 ### Geschiedenis:
-### 24-04-2018: DD: Aanmaken bestand
+### 14-06-2018: DD: Aanmaken bestand
 ################################################################################
 
 ############################################################################
@@ -57,7 +56,7 @@ teleformdata <- teleformdata %>%
 ## 2. MANIPULEREN stap 1
 ################################################################################
 ##Laden van transformatie script en errors tonen in console
-ll <- parse(file = "MC toetsen/Heranalyse Toetsanalyse 2 versies stap 1.R")
+ll <- parse(file = "MC toetsen/Heranalyse Toetsanalyse 4 versies stap 1.R")
 
 for (i in seq_along(ll)) {
   tryCatch(eval(ll[[i]]), 
@@ -85,7 +84,7 @@ sleutel <- read.csv2(paste0(Network_directory,"sleutel_nieuw.csv"))
 ## 4. ANALYSEREN stap 2
 ################################################################################
 ##Laden van transformatie script en errors tonen in console
-ll <- parse(file = "MC toetsen/Heranalyse Toetsanalyse 2 versies stap 2.R")
+ll <- parse(file = "MC toetsen/Heranalyse Toetsanalyse 4 versies stap 2.R")
 
 for (i in seq_along(ll)) {
   tryCatch(eval(ll[[i]]), 
