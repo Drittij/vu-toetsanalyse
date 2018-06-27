@@ -43,7 +43,8 @@ if(!require(subscore)){install.packages("subscore")}
 if(!require(difNLR)){install.packages("difNLR")}
 if(!require(BSDA)){install.packages("BSDA")}
 if(!require(ggrepel)){install.packages("ggrepel")}
-
+devtools:: install_version("XLConnectJars", version = "0.2-12", repos = "http://cran.us.r-project.org") 
+devtools:: install_version("XLConnect", version = "0.2-12", repos = "http://cran.us.r-project.org")
 
 # laden libraries ---------------------------------------------------------
 
@@ -65,6 +66,7 @@ library(subscore)
 library(difNLR)
 library(BSDA)
 library(ggrepel)
+library(XLConnect)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
 Network_directory_WIN <- "G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/"

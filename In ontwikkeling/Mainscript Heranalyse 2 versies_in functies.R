@@ -74,7 +74,7 @@ sleutel <- read.csv2(paste0(Network_directory,"sleutel_nieuw.csv"))
 stap2 <- analyze_2(stap1$data, stap1$sleutel, stap1$teleformdata_correct, nrq, cesuur, stap1$gokkans, stap1$student_versies) 
 
 # 5. Maken rapport in pdf -------------------------------------------------
-thetitle=naamtoets; rmarkdown::render("MC toetsen/Itemanalyse_new.Rmd", 
+thetitle=naamtoets; rmarkdown::render("In ontwikkeling/Itemanalyse_new.Rmd", 
                                       output_file = paste0(Network_directory,
                                                            "Itemanalyse.pdf"))
 

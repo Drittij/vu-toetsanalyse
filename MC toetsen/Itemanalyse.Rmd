@@ -33,12 +33,12 @@ header-includes:
 **Contactgegevens**:
 Tentamenservice@vu.nl / (020) 59 83146
 
-**Toetswaarden**:
+\hfill\break
 
 ```{r, echo=FALSE}
 studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
 names(toets) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
-toetswaardent <- as.data.frame(t(toets))
+toetswaardent <- as.data.frame(t(toets)) %>% tibble::rownames_to_column()
 
 library('knitr')
 ```
@@ -46,7 +46,11 @@ library('knitr')
 
 ```{r, echo=FALSE}
 
-kable(toetswaardent, digits = 2, "markdown", row.names = T, col.names = "")
+library(kableExtra)
+kable(toetswaardent, digits = 2, row.names = F, "latex", booktabs = T, 
+      col.names = c("Toetswaarden", "")) %>% 
+      column_spec(1, width = "10cm") %>% 
+      row_spec(0,bold=TRUE)
 
 ```
 
@@ -55,7 +59,10 @@ kable(toetswaardent, digits = 2, "markdown", row.names = T, col.names = "")
 
 ```{r, echo=FALSE}
 
-kable(itemanalyse, digits = 2, "markdown", row.names = F)
+library(kableExtra)
+kable(itemanalyse, digits = 2, "latex", longtable = T, booktabs = T, row.names = F) %>% 
+          row_spec(0,bold=TRUE) %>%
+          kable_styling(latex_options = c("repeat_header"))
 
 ```
 
