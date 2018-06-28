@@ -64,12 +64,6 @@ orderB <- as.vector(volgorde$Bversie)
 orderC <- as.vector(volgorde$Cversie)
 orderD <- as.vector(volgorde$Dversie)
 
-##Extraheer studentnummers en namen (wordt later gedaan, niet meer nodig)
-# studentnummers_namen <- teleformdata %>%  
-#   dplyr:: filter(stud_nr > 0, Toetsversie <=2) %>% 
-#   dplyr:: select(stud_nr, stud_naam) 
-# colnames(studentnummers_namen) <- c("studentnummers", "studentnamen")
-
 ##Verwijder eerste twee kolommen (=studentnamen en studentnummers)
 teleformdataD_new <- teleformdataD_new %>% dplyr:: select(-c(stud_nr, stud_naam))
 teleformdataC_new <- teleformdataC_new %>% dplyr:: select(-c(stud_nr, stud_naam))

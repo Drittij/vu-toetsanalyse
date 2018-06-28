@@ -61,12 +61,6 @@ volgorde <- read.csv2(paste0(Network_directory,"Volgordeomzetting.csv"))
 orderB <- as.vector(volgorde$Bversie)
 orderC <- as.vector(volgorde$Cversie)
 
-##Extraheer studentnummers en namen (wordt later gedaan, niet meer nodig)
-# studentnummers_namen <- teleformdata %>%  
-#   dplyr:: filter(stud_nr > 0, Toetsversie <=2) %>% 
-#   dplyr:: select(stud_nr, stud_naam) 
-# colnames(studentnummers_namen) <- c("studentnummers", "studentnamen")
-
 ##Verwijder eerste twee kolommen (=studentnamen en studentnummers)
 teleformdataC_new <- teleformdataC_new %>% dplyr:: select(-c(stud_nr, stud_naam))
 teleformdataB_new <- teleformdataB_new %>% dplyr:: select(-c(stud_nr, stud_naam))

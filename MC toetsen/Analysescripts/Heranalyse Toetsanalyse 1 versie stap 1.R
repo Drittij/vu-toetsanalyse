@@ -31,11 +31,6 @@ gk <- 1/nra
 ##Maak ruwe data file zonder lege kolommen: letter data + sleutel
 teleformdata_new <- teleformdata[ c(1:nrc) ]
 
-# ##Verwijder vragen uit dataset (optioneel te gebruiken)
-# teleformdata_new[delete] <- list(NULL)
-# nrq <- nrq_nieuw
-# nrc <- nrq+2
-
 ##Defineer vraagnamen aanwezige vragen
 vrn <- colnames(teleformdata_new[3:nrc])
 
@@ -50,7 +45,6 @@ write.csv2(sleutel, file=paste0(Network_directory,"sleutel.csv"),
 studentnummers <- teleformdata_new %>%  dplyr:: select(stud_nr) %>% 
   dplyr:: filter(stud_nr > 0) %>% 
   dplyr:: rename(studentnummers = stud_nr)
-
 
 studentnamen <- teleformdata_new %>%  dplyr:: filter(stud_nr > 0) %>% 
   dplyr:: select(stud_naam) %>% 
