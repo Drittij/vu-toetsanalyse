@@ -43,8 +43,10 @@ if(!require(subscore)){install.packages("subscore")}
 if(!require(difNLR)){install.packages("difNLR")}
 if(!require(BSDA)){install.packages("BSDA")}
 if(!require(ggrepel)){install.packages("ggrepel")}
-devtools:: install_version("XLConnectJars", version = "0.2-12", repos = "http://cran.us.r-project.org") 
-devtools:: install_version("XLConnect", version = "0.2-12", repos = "http://cran.us.r-project.org")
+if(!require(devtools)){install.packages("devtools")}
+if(!require(XLConnectJars)){devtools:: install_version("XLConnectJars", version = "0.2-12", repos = "http://cran.us.r-project.org")}
+if(!require(XLConnect)){devtools:: install_version("XLConnect", version = "0.2-12", repos = "http://cran.us.r-project.org")}
+
 
 # laden libraries ---------------------------------------------------------
 

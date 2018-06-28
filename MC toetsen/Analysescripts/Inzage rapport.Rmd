@@ -32,7 +32,7 @@ header-includes:
 
 ```{r Overzicht score, echo=FALSE}
 
-Gemiddelde_score <- as.data.frame(toets$scaleMean)
+Gemiddelde_score <- as.data.frame(toets$'Gemiddelde score')
 
 kable(Gemiddelde_score, "markdown", digits = 0,  row.names = F, col.names = "Gemiddelde score")
 
