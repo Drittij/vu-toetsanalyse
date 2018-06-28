@@ -15,8 +15,8 @@
 ### 
 ################################################################################
 ### TODO:
-### 1) Testen met 3:4 versies
-### 2) Uitlijning itemanalyserapport bij meer antwoordalternatieven
+### 1) Testen met 3 versies
+### 2) Testen uitlijning itemanalyserapport bij 6 antwoordalternatieven
 ###
 ################################################################################    
 ### Geschiedenis:
@@ -77,10 +77,6 @@ source("MC toetsen/Analysescripts/Uitslagbestand.R")
 thetitle=naamtoets; rmarkdown::render("MC toetsen/Analysescripts/Itemanalyse.Rmd", 
                                       output_file = paste0(Network_directory,
                                                            "Itemanalyse.pdf"))
-
-
-
-
 
 # 6. Genereren inzage rapporten per student in pdf ------------------------
 source("MC toetsen/Analysescripts/Inzage rapport.R")

@@ -42,6 +42,8 @@ total_score <- cbind(studentnummers_namen, scored_data[1])
 total_score <- mutate(total_score, cijfer = (10-(nrq-total_score$score)/(nrq-cesuur)*(10-5.5)))
 total_score <-  total_score %>% mutate(cijfer = replace(cijfer, cijfer<1, 1))
 
+total_score <- dplyr:: rename(total_score, studentnamen = stud_naam, studentnummers = stud_nr)
+
 ##Wegschrijven score per student naar csv file
 write.csv2(total_score, file=paste0(Network_directory,"results_student.csv"), 
            row.names=FALSE)
@@ -239,7 +241,7 @@ write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
 
 
 ##Bereken gemiddelde score en sd per toetsversie
-versie_score <- inner_join(total_score, student_versies, by = c("stud_nr" = "studentnummers")) %>% group_by(Toetsversie) %>%
+versie_score <- inner_join(total_score, student_versies, by = "studentnummers") %>% group_by(Toetsversie) %>%
   summarise(mean=mean(score), sd=sd(score), n=n())
 
 ttest <- tsum.test(mean.x=versie_score$mean[1],   s.x=versie_score$sd[1], n.x=versie_score$n[1],
