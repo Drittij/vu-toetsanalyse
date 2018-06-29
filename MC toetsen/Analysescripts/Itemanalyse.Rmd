@@ -62,7 +62,7 @@ kable(toetswaardent, digits = 2, row.names = F, "latex", booktabs = T,
 library(kableExtra)
 kable(itemanalyse, digits = 2, "latex", longtable = T, booktabs = T, row.names = F) %>% 
           row_spec(0,bold=TRUE) %>%
-          kable_styling(latex_options = c("repeat_header"))
+          kable_styling(latex_options = c("repeat_header"), font_size = 8)
 
 ```
 
@@ -100,14 +100,14 @@ library(ggplot2)
 library(ggrepel)
 
 set.seed(42)
-ggplot(itemanalyse, aes(rir, P_waarde)) +
+ggplot(itemanalyse, aes(rir, P)) +
   geom_rect(data=itemanalyse,aes(xmin=min(rir)-0.1,xmax=0.1,ymin=-Inf,ymax=0.3),fill="red") + 
   geom_rect(data=itemanalyse,aes(xmin=0.1,xmax=max(rir)+0.1,ymin=0.3,ymax=Inf),fill="lightgreen")+ 
   geom_rect(data=itemanalyse,aes(xmin=0.1,xmax=max(rir)+0.1,ymin=-Inf,ymax=0.3),fill="orange")+
   geom_rect(data=itemanalyse,aes(xmin=min(rir)-0.1,xmax=0.1,ymin=0.3,ymax=Inf),fill="orange")+
   geom_point(alpha=0.5) + 
   labs(x = "Rir waarde", y = "P waarde") + 
-  geom_text_repel(aes(rir, P_waarde, label = itemName)) + ylim(0,1) +
+  geom_text_repel(aes(rir, P, label = Item)) + ylim(0,1) +
   theme_classic(base_size = 16)
 
 

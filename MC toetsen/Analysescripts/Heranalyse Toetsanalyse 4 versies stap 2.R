@@ -234,6 +234,7 @@ itemanalyse <- cbind(tsleutel, itemanalyse) %>%
   dplyr:: rename(Key = V1)
 
 itemanalyse <- dplyr:: mutate(itemanalyse, itemName = colnames(sleutel))
+itemanalyse <- dplyr:: rename(itemanalyse, Item = itemName, P = P_waarde, 'P\''= Rel_P )
 
 ##Schrijf itemanalyse weg naar csv
 write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
