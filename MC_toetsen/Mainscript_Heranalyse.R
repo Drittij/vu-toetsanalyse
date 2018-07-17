@@ -7,7 +7,7 @@
 ### Doel: Script voor het inlezen en analyseren van teleform data voor 
 ### tentamen met 2:6 antwoordalternatieven en 1:4 versies
 ### 
-### Afhankelijkheden: geen
+### Afhankelijkheden: del bestand, volgordeomzetting en toetsinfo
 ###
 ### Gebruikte datasets: ruwe data .DEL bestand, nieuwe sleutel in csv
 ###
@@ -21,6 +21,7 @@
 ### Geschiedenis:
 ### 24-04-2018: DD: Aanmaken bestand
 ### 28-06-2018: DD: Script verplaatst naar subscripts
+### 17-07-2018: DD: Input toetsvariabele verplaatst naar toetsinfo excel
 ################################################################################
 
 # 0. Voorbereidingen ------------------------------------------------------
@@ -31,6 +32,7 @@ source("Voorbereidingen.R")
 # 1. Inlezen --------------------------------------------------------------
 # Lees alle benodigde bestanden in:
 # defineer naam bestand, datum, aantal vragen, gokkans en cesuur, aantal versies
+# in toetsinfo excel bestand
 source("MC toetsen/Analysescripts/Inlezen.R")
 
 # 2. Manipuleren ----------------------------------------------------------
