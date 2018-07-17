@@ -26,18 +26,18 @@
 
 # 0. Voorbereidingen ------------------------------------------------------
 ## Lees de packages, functies en libraries in
-source("Voorbereidingen.R")
+source("H:/Documents/github/vu-toetsanalyse/Voorbereidingen.R")
 # LET OP: Bij meerdere versies bestand Volgordeomzetting.csv klaarzetten in map
 
 # 1. Inlezen --------------------------------------------------------------
 # Lees alle benodigde bestanden in:
 # defineer naam bestand, datum, aantal vragen, gokkans en cesuur, aantal versies
 # in toetsinfo excel bestand
-source("MC toetsen/Analysescripts/Inlezen.R")
+source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Inlezen.R")
 
 # 2. Manipuleren ----------------------------------------------------------
 # Data prepareren voor analyse, o.a. volgordeomzetting doorvoeren
-source("MC toetsen/Analysescripts/Manipuleren.R")
+source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Manipuleren.R")
 
 for (i in seq_along(ll)) {
   tryCatch(eval(ll[[i]]), 
@@ -46,9 +46,9 @@ for (i in seq_along(ll)) {
 
 # 3. Invoeren aanpassingen heranalyse -------------------------------------
 
-# ##Verwijder vragen uit dataset (optioneel te gebruiken)
-# data <- dplyr:: select(data, -V5, -V13, -V14, -V17, -V30, -V36)
-# nrq <- 39
+##Verwijder vragen uit dataset (optioneel te gebruiken)
+# data <- dplyr:: select(data, -V17)
+# nrq <- 27
 # nrc <- nrq+2
 # 
 # ## Schrijf data weg
@@ -63,7 +63,7 @@ for (i in seq_along(ll)) {
 
 # 4. Analyseren -----------------------------------------------------------
 # Genereren itemanalyse en scores
-source("MC toetsen/Analysescripts/Analyseren.R")
+source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Analyseren.R")
 
 for (i in seq_along(ll)) {
   tryCatch(eval(ll[[i]]), 
@@ -71,16 +71,16 @@ for (i in seq_along(ll)) {
 }
 
 # 4A. Vul uitslagbestand --------------------------------------------------
-source("MC toetsen/Analysescripts/Uitslagbestand.R")
+source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Uitslagbestand.R")
 
 
 # 5. Genereren pdf rapport itemanalyse ------------------------------------
-thetitle=naamtoets; rmarkdown::render("MC toetsen/Analysescripts/Itemanalyse.Rmd", 
+thetitle=naamtoets; rmarkdown::render("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Itemanalyse.Rmd", 
                                       output_file = paste0(Network_directory,
                                                            "Itemanalyse.pdf"))
 
 # 6. Genereren inzage rapporten per student in pdf ------------------------
-# source("MC toetsen/Analysescripts/Inzage rapport.R")
+# source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Inzage rapport.R")
 
 
 # 7. Vraaggroepen ---------------------------------------------------------

@@ -34,7 +34,7 @@ for(i in 1:nrow(teleformdata_new)) {
   total_score_selectie <- filter(total_score, 
                                       `studentnummers`==student)
   
-  thetitle=paste("Inzage toets", naamtoets); rmarkdown::render("MC toetsen/Analysescripts/Inzage rapport.Rmd", 
+  thetitle=paste("Inzage toets", naamtoets); rmarkdown::render("MC_toetsen/Analysescripts/Inzage rapport.Rmd", 
                       output_file = paste0(Network_directory,"/inzage/", student,".pdf"))
   
 }
