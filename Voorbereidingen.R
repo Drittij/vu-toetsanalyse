@@ -29,49 +29,46 @@ if(!require(CTT)){install.packages("CTT")}
 if(!require(stringr)){install.packages("stringr")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(psych)){install.packages("psych")}
-if(!require(schoRsch)){install.packages("schoRsch")}
-if(!require(svDialogs)){install.packages("svDialogs")}
 if(!require(ggplot2)){install.packages("ggplot2")}
 if(!require(jmv)){install.packages("jmv")}
 if(!require(readxl)){install.packages("readxl")}
 if(!require(purrr)){install.packages("purrr")}
 if(!require(knitr)){install.packages("knitr")}
-if(!require(xlsx)){install.packages("xlsx")}
 if(!require(reshape2)){install.packages("reshape2")}
 if(!require(tidyverse)){install.packages("tidyverse")}
-if(!require(subscore)){install.packages("subscore")}
-if(!require(difNLR)){install.packages("difNLR")}
-if(!require(BSDA)){install.packages("BSDA")}
+if(!require(knitr)){install.packages("knitr")}
+if(!require(kableExtra)){install.packages("kableExtra")}
+if(!require(tibble)){install.packages("tibble")}
+if(!require(PASWR)){install.packages("PASWR")}
 if(!require(ggrepel)){install.packages("ggrepel")}
 if(!require(devtools)){install.packages("devtools")}
+if(!require(magrittr)){install.packages("magrittr")}
 if(!require(XLConnectJars)){devtools:: install_version("XLConnectJars", version = "0.2-12", repos = "http://cran.us.r-project.org")}
 if(!require(XLConnect)){devtools:: install_version("XLConnect", version = "0.2-12", repos = "http://cran.us.r-project.org")}
 
 
 # laden libraries ---------------------------------------------------------
-
 library(stringr)
 library(dplyr)
 library(psych)
-library(schoRsch) 
-library(svDialogs)
 library(ggplot2)
 library(jmv)
 library(readxl)
 library(purrr)
 library(knitr)
-library(xlsx)
 library(reshape2)
 library(CTT)
 library(tidyverse)
-library(subscore)
-library(difNLR)
-library(BSDA)
 library(ggrepel)
 library(XLConnect)
+library(magrittr)
+library(knitr)
+library(kableExtra)
+library(tibble)
+library(PASWR)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
-Network_directory_WIN <- "G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
+Network_directory_WIN <- "H:/usr/"
 Network_directory_MAC <- "/Volumes/groups/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
 
 if (.Platform$OS.type == "windows") {
@@ -86,7 +83,7 @@ Network_directory
 # Functie om vragen na te kijken (met meerdere antwoorden goed) -----------
 
 score_mc <- function (items, key, output.scored = TRUE, ID = NA, rel = TRUE, 
-                          multiKeySep = "none", multiKeyScore = c("or", "dich")) 
+                      multiKeySep = "none", multiKeyScore = c("or", "dich")) 
 {
   t <- as.vector(ID)
   t <- table(ID)
@@ -201,7 +198,7 @@ prep_mc_2 <- function (teleformdatabestand, aantal_vragen = NULL, aantal_alterna
   volgorde <- read.csv2(paste0(Network_directory,"Volgordeomzetting.csv"))
   # volgorde <- read_xlsx(paste0(Network_directory,"Volgordeomzetting.xlsx")) %>% map_df(as.integer)
   orderB <- as.vector(volgorde$Bversie)
-
+  
   ##Verwijder eerste twee kolommen (=studentnamen en studentnummers)
   teleformdataB_new <- teleformdataB_new %>% dplyr:: select(-c(stud_nr, stud_naam))
   teleformdataA_new <- teleformdataA_new %>% dplyr:: select(-c(stud_nr, stud_naam))
@@ -445,7 +442,7 @@ analyze_2 <- function (data, sleutel, teleformdata_correct, aantal_vragen, cesuu
     dplyr:: rename(Key = V1)
   
   itemanalyse <- dplyr:: mutate(itemanalyse, itemName = colnames(sleutel))
-
+  
   ##Bereken gemiddelde score en sd per toetsversie
   versie_score <- inner_join(total_score, student_versies, by = "studentnummers") %>% group_by(Toetsversie) %>%
     summarise(mean=mean(score), sd=sd(score), n=n())
