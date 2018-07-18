@@ -23,6 +23,7 @@ nrq <- toetsinfo$`aantal vragen`
 nra <- toetsinfo$`aantal antwoordalternatieven`
 cesuur <- toetsinfo$cesuur
 nrv <- toetsinfo$`aantal versies`
+heranalyse <- toetsinfo$heranalyse
 
 ##Open databestand
 teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")

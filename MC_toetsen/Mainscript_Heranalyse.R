@@ -44,22 +44,11 @@ for (i in seq_along(ll)) {
            error = function(e) message("Oops!  ", as.character(e)))
 }
 
-# 3. Invoeren aanpassingen heranalyse -------------------------------------
-
-##Verwijder vragen uit dataset (optioneel te gebruiken)
-# data <- dplyr:: select(data, -V17)
-# nrq <- 27
-# nrc <- nrq+2
-# 
-# ## Schrijf data weg
-# write.csv2(data, file=paste0(Network_directory,"data.csv"), row.names=FALSE)
-# 
-# ## Upload eventueel aangepaste/nieuwe sleutel
-# ## Om meerdere antwoorden goed te rekenen lever komma gescheiden aan
-# 
-# ## LET OP!! Verwijder ook de verwijderde vragen
-# sleutel <- read.csv2(paste0(Network_directory,"sleutel_nieuw.csv"))
-# # sleutel <- readxl:: read_xlsx(paste0(Network_directory,"sleutel_nieuw.xlsx"))
+# 3. Uitvoeren aanpassingen heranalyse -------------------------------------
+## Upload eventueel aangepaste/nieuwe sleutel
+## Om meerdere antwoorden goed te rekenen lever komma gescheiden aan
+## LET OP!! Verwijder ook de verwijderde vragen
+source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Aanpassingen_heranalyse.R")
 
 # 4. Analyseren -----------------------------------------------------------
 # Genereren itemanalyse en scores
