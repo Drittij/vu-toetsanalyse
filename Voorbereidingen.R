@@ -30,13 +30,10 @@ if(!require(stringr)){install.packages("stringr")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(psych)){install.packages("psych")}
 if(!require(ggplot2)){install.packages("ggplot2")}
-if(!require(jmv)){install.packages("jmv")}
 if(!require(readxl)){install.packages("readxl")}
 if(!require(purrr)){install.packages("purrr")}
 if(!require(knitr)){install.packages("knitr")}
 if(!require(reshape2)){install.packages("reshape2")}
-if(!require(tidyverse)){install.packages("tidyverse")}
-if(!require(knitr)){install.packages("knitr")}
 if(!require(kableExtra)){install.packages("kableExtra")}
 if(!require(tibble)){install.packages("tibble")}
 if(!require(PASWR)){install.packages("PASWR")}
@@ -48,24 +45,22 @@ if(!require(XLConnect)){devtools:: install_version("XLConnect", version = "0.2-1
 
 
 # laden libraries ---------------------------------------------------------
+library(CTT)
 library(stringr)
 library(dplyr)
 library(psych)
 library(ggplot2)
-library(jmv)
 library(readxl)
 library(purrr)
 library(knitr)
 library(reshape2)
-library(CTT)
-library(tidyverse)
-library(ggrepel)
-library(XLConnect)
-library(magrittr)
-library(knitr)
 library(kableExtra)
 library(tibble)
 library(PASWR)
+library(ggrepel)
+library(XLConnect)
+library(magrittr)
+
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
 Network_directory_WIN <- "H:/usr/"
