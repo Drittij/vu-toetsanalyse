@@ -13,7 +13,7 @@
 ### Afhankelijkheden ###
 
 * De teleform data is een tab gescheiden .DEL bestand 
-* Het pad van de netwerkmap die gebruikt wordt is G:\DSZ\OKZ\OTIR\Toetsen\Werkmap, 
+* Het pad van de netwerkmap die gebruikt wordt voor de input data is H:/use, 
 deze is gedefineerd in het voorbereidingen script.
 
 ### Who do I talk to? ###
