@@ -7,10 +7,9 @@ cijfers <- read.csv2(paste0(Network_directory,"results_student.csv")) %>%
 
 instellingen <- data.frame(nrq, cesuur)
 
-wb <- loadWorkbook("T:\\tentamens\\tentamenuitslag_R.xlsx", create = TRUE)
+wb <- loadWorkbook("G:\\DSZ\\OKZ\\OTIR\\tentamens\\tentamenuitslag_R.xlsx", create = TRUE)
 writeWorksheet(wb, instellingen, sheet = "transformatie", startRow = 2, startCol = 9, header = F)
 writeWorksheet(wb, cijfers, sheet = "cijfers", startRow = 2, header = F)
-setForceFormulaRecalculation(wb, sheet = "transformatie", TRUE)
-setForceFormulaRecalculation(wb, sheet = "cijfers", TRUE)
+setForceFormulaRecalculation(wb, sheet = "*", TRUE)
 
 saveWorkbook(wb, paste0(Network_directory,"uitslagbestand.xlsx"))

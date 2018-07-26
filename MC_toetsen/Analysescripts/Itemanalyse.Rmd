@@ -27,7 +27,7 @@ header-includes:
 \addtolength{\headheight}{0.5cm} 
 \pagestyle{fancyplain} 
 \lhead{Toetsanalyse} 
-\rhead{\includegraphics[height=1.2cm]{T:/Toetsen/Werkmap/VUlogo.png}} 
+\rhead{\includegraphics[height=1.2cm]{G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/VUlogo.png}} 
 \renewcommand{\headrulewidth}{0pt}
 
 **Contactgegevens**:
