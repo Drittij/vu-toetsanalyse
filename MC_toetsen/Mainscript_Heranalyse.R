@@ -25,7 +25,9 @@
 ################################################################################
 
 # 0. Voorbereidingen ------------------------------------------------------
-
+## Bepaal hier de working directory. Als het bestand vanuit Rstudio uitgevoerd
+## wordt is er geen wijziging nodig, als het bestand vanuit een .bat bestand 
+## wordt uitgevoerd wordt de meegegeven parameter gebruikt als working directory
 if (!"RStudio" %in% commandArgs(trailingOnly = F)) {
   ## Verander de slash van forward naar backward
   working_dir <- gsub("\\\\", "/", commandArgs(trailingOnly = T))
