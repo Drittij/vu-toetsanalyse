@@ -1,1 +1,1 @@
-Rscript %~dp0\Mainscript_Heranalyse.R
+Rscript %~dp0\Mainscript_Heranalyse.R %~dp0

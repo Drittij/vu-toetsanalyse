@@ -1,7 +1,7 @@
 
 # Vullen uitslagbestand ---------------------------------------------------
 
-cijfers <- read.csv2("T:\\Toetsen\\Werkmap\\results_student.csv") %>% 
+cijfers <- read.csv2(paste0(Network_directory,"results_student.csv")) %>% 
   dplyr:: select(-cijfer) %>% dplyr:: arrange(studentnamen) %>%  
   dplyr:: select(studentnamen, studentnummers, score)
 
@@ -13,4 +13,4 @@ writeWorksheet(wb, cijfers, sheet = "cijfers", startRow = 2, header = F)
 setForceFormulaRecalculation(wb, sheet = "transformatie", TRUE)
 setForceFormulaRecalculation(wb, sheet = "cijfers", TRUE)
 
-saveWorkbook(wb, "T:\\Toetsen\\Werkmap\\uitslagbestand.xlsx" )
+saveWorkbook(wb, paste0(Network_directory,"uitslagbestand.xlsx"))
