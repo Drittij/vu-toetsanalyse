@@ -93,7 +93,7 @@ for (i in seq_along(ll)) {
 }
 
 # 4A. Vul uitslagbestand --------------------------------------------------
-cijfers <- read.csv2("T:\\Toetsen\\Werkmap\\results_student.csv") %>% dplyr:: select(-cijfer) %>% dplyr:: arrange(studentnamen)
+cijfers <- read.csv2(paste0(Network_directory,"results_student.csv")) %>% dplyr:: select(-cijfer) %>% dplyr:: arrange(studentnamen)
 
 instellingen <- data.frame(nrq, cesuur)
 
@@ -103,7 +103,7 @@ writeWorksheet(wb, cijfers, sheet = "cijfers", startRow = 2, header = F)
 setForceFormulaRecalculation(wb, sheet = "transformatie", TRUE)
 setForceFormulaRecalculation(wb, sheet = "cijfers", TRUE)
 
-saveWorkbook(wb, "T:\\Toetsen\\Werkmap\\uitslagbestand.xlsx" )
+saveWorkbook(wb, paste0(Network_directory,"uitslagbestand.xlsx" ))
 
 ################################################################################
 ## 5. Maken rapport in pdf

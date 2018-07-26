@@ -25,19 +25,28 @@
 ################################################################################
 
 # 0. Voorbereidingen ------------------------------------------------------
+
+if (!"RStudio" %in% commandArgs(trailingOnly = F)) {
+  ## Verander de slash van forward naar backward
+  working_dir <- gsub("\\\\", "/", commandArgs(trailingOnly = T))
+  ## Verwijder "MC_toetsen" uit de directory
+  working_dir <- gsub("MC_toetsen/","", working_dir)
+  setwd(working_dir)
+}
+
 ## Lees de packages, functies en libraries in
-source("H:/Documents/github/vu-toetsanalyse/Voorbereidingen.R")
+source("Voorbereidingen.R")
 # LET OP: Bij meerdere versies bestand Volgordeomzetting.csv klaarzetten in map
 
 # 1. Inlezen --------------------------------------------------------------
 # Lees alle benodigde bestanden in:
 # defineer naam bestand, datum, aantal vragen, gokkans en cesuur, aantal versies
 # in toetsinfo excel bestand
-source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Inlezen.R")
+source("MC_toetsen/Analysescripts/Inlezen.R")
 
 # 2. Manipuleren ----------------------------------------------------------
 # Data prepareren voor analyse, o.a. volgordeomzetting doorvoeren
-source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Manipuleren.R")
+source("MC_toetsen/Analysescripts/Manipuleren.R")
 
 for (i in seq_along(ll)) {
   tryCatch(eval(ll[[i]]), 
@@ -48,11 +57,11 @@ for (i in seq_along(ll)) {
 ## Upload eventueel aangepaste/nieuwe sleutel
 ## Om meerdere antwoorden goed te rekenen lever komma gescheiden aan
 ## LET OP!! Verwijder ook de verwijderde vragen
-source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Aanpassingen_heranalyse.R")
+source("MC_toetsen/Analysescripts/Aanpassingen_heranalyse.R")
 
 # 4. Analyseren -----------------------------------------------------------
 # Genereren itemanalyse en scores
-source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Analyseren.R")
+source("MC_toetsen/Analysescripts/Analyseren.R")
 
 for (i in seq_along(ll)) {
   tryCatch(eval(ll[[i]]), 
@@ -60,11 +69,11 @@ for (i in seq_along(ll)) {
 }
 
 # 4A. Vul uitslagbestand --------------------------------------------------
-source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Uitslagbestand.R")
+source("MC_toetsen/Analysescripts/Uitslagbestand.R")
 
 
 # 5. Genereren pdf rapport itemanalyse ------------------------------------
-thetitle=naamtoets; rmarkdown::render("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Itemanalyse.Rmd", 
+thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd", 
                                       output_file = paste0(Network_directory,
                                                            "Itemanalyse.pdf"))
 
