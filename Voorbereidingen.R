@@ -68,7 +68,7 @@ library(tibble)
 library(PASWR)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
-Network_directory_WIN <- "G:/groups/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
+Network_directory_WIN <- "G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
 Network_directory_MAC <- "/Volumes/groups/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
 
 if (.Platform$OS.type == "windows") {
