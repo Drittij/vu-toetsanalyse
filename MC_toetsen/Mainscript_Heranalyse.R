@@ -22,6 +22,7 @@
 ### 24-04-2018: DD: Aanmaken bestand
 ### 28-06-2018: DD: Script verplaatst naar subscripts
 ### 17-07-2018: DD: Input toetsvariabele verplaatst naar toetsinfo excel
+### 02-08-2018: DD: Bugs verholpen, checks ingebouwd en relatieve paden verbeterd
 ################################################################################
 
 # 0. Voorbereidingen ------------------------------------------------------
@@ -80,28 +81,42 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
                                                            "Itemanalyse.pdf"))
 
 # 6. Genereren inzage rapporten per student in pdf ------------------------
-# source("H:/Documents/github/vu-toetsanalyse/MC_toetsen/Analysescripts/Inzage rapport.R")
+# source("MC_toetsen/Analysescripts/Inzage rapport.R")
 
 
 # 7. Vraaggroepen ---------------------------------------------------------
 
 ##Bereken scores per vraaggroep. 
-## Pas onderstaand script aan welke vragen bij elkaar horen
+# Pas onderstaand script aan welke vragen bij elkaar horen
+# vrn <- names(sleutel)
 # newnames <- c("studentnummer", "studentnaam", vrn)
 # colnames(scored_datax) <- newnames
-# vraag_groep <- mutate(scored_datax, 
-#                       groep1=V1+V2+V3+V4, 
-#                       groep2=V5+V6+V7+V8, 
+# 
+# vraag_groep <- mutate(scored_datax,
+#                       groep1=V1+V2+V3+V4,
+#                       groep2=V5+V6+V8,
 #                       groep3=V9+V10+V11+V12)
 # 
-# vraag_groep_score <- dplyr:: select(vraag_groep, 
-#                                     studentnummer, 
-#                                     groep1, 
-#                                     groep2, 
-#                                     groep3)
+# vraag_groep_score <- dplyr:: select(vraag_groep,
+#                                     studentnummer,
+#                                     groep1,
+#                                     groep2,
+#                                     groep3) 
 # 
+# avg_groep_score <- vraag_groep_score %>% 
+#   summarise(groep1_m = mean(groep1),
+#             groep1_sd = sd(groep1),
+#             groep2_m = mean(groep2),
+#             groep2_sd = sd(groep2),
+#             groep3_m = mean(groep3),
+#             groep3_sd = sd(groep3)) %>% 
+#   t() %>% as.data.frame %>% rownames_to_column(var = "Groep") 
+#             
 # write.csv2(vraag_groep_score, file=paste0(Network_directory,
 #                                           "vraaggroepen.csv"), row.names=FALSE)
+# 
+# write.csv2(avg_groep_score, file=paste0(Network_directory,
+#                                           "vraaggroep_mean_sd.csv"), row.names=FALSE)
 
 # 8. Correlatiematrix vragen genereren ------------------------------------
 # ## Correlatiematrix vragen
