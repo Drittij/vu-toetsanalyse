@@ -1,7 +1,8 @@
 
 # Vullen uitslagbestand ---------------------------------------------------
+total_score$studentnamen <- trimws(total_score$studentnamen)
 
-cijfers <- read.csv2(paste0(Network_directory,"results_student.csv")) %>% 
+cijfers <- total_score %>% 
   dplyr:: select(-cijfer) %>% dplyr:: arrange(studentnamen) %>%  
   dplyr:: select(studentnamen, studentnummers, score)
 
@@ -11,5 +12,6 @@ wb <- loadWorkbook("G:\\DSZ\\OKZ\\OTIR\\tentamens\\tentamenuitslag_R.xlsx", crea
 writeWorksheet(wb, instellingen, sheet = "transformatie", startRow = 2, startCol = 9, header = F)
 writeWorksheet(wb, cijfers, sheet = "cijfers", startRow = 2, header = F)
 setForceFormulaRecalculation(wb, sheet = "*", TRUE)
+clearRange(wb, sheet = "cijfers", coords = c(nrst+2, 4, 600, 4))
 
-saveWorkbook(wb, paste0(Network_directory,"uitslagbestand.xlsx"))
+saveWorkbook(wb, paste0(Network_directory,vakcode,"_","uitslagbestand.xlsx"))

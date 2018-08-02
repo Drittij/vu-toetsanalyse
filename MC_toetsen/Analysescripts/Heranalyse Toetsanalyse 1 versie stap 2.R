@@ -44,10 +44,6 @@ total_score <-  total_score %>% mutate(cijfer = replace(cijfer, cijfer<1, 1))
 ##Toevoegen studentnamen aan totaalscore student
 total_score <- cbind(studentnamen, total_score)
 
-##Wegschrijven score per student naar csv file
-write.csv2(total_score, file=paste0(Network_directory,"results_student.csv"), 
-           row.names=FALSE)
-
 ## Toon cronbachs alpha
 KR20 <- purrr:: pluck(scored_data, 2, "alpha")
 # KR20 <- scored_data$reliability$alpha
@@ -98,7 +94,6 @@ toets <- mutate(toets, KR20_75 = KR20_75) %>%
 ##Berekenen kappa
 kappa <- round(((KR20)*(toets$scaleSD^2)+(toets$scaleMean-cesuur)^2)/((toets$scaleSD^2) + (toets$scaleMean-cesuur)^2), digits = 2)
 toets <- mutate(toets, kappa = as.numeric(kappa))
-write.csv2(toets, file=paste0(Network_directory,"toetswaarden.csv"))
 
 ##Bepaal aantal studenten
 nrst <- toets$nPerson
@@ -235,6 +230,3 @@ itemanalyse <- cbind(tsleutel, itemanalyse) %>%
 itemanalyse <- dplyr:: mutate(itemanalyse, itemName = colnames(sleutel))
 itemanalyse <- dplyr:: rename(itemanalyse, Item = itemName, P = P_waarde, 'P\''= Rel_P )
 
-##Schrijf itemanalyse weg naar csv
-write.csv2(itemanalyse, row.names = F , file=paste0(Network_directory,
-                                                    "itemanalyse.csv"))

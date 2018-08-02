@@ -33,6 +33,10 @@ teleformdataA <- teleformdata %>% dplyr:: filter(Toetsversie == 1)
 teleformdataB <- teleformdata %>% dplyr:: filter(Toetsversie == 2)
 teleformdata_onbekend <- teleformdata %>% dplyr:: filter(Toetsversie >2)
 
+if (nrow(teleformdata_onbekend > 0)) {
+  write.csv2(teleformdata_onbekend, paste0(Network_directory,"geen_versie.csv"))
+}
+
 ##Maak bestand met studentnummer + Toetsversie voor latere koppeling aan score
 student_versies <- dplyr:: select(teleformdata, studentnummers=stud_nr, 
                                   Toetsversie) %>% 

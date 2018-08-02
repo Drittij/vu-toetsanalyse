@@ -36,7 +36,7 @@ Tentamenservice@vu.nl / (020) 59 83146
 \hfill\break
 
 ```{r, echo=FALSE}
-studentscores <- read.csv2(paste0(Network_directory,"results_student.csv"))
+studentscores <- total_score
 names(toets) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
 toetswaardent <- as.data.frame(t(toets)) %>% tibble::rownames_to_column()
 
@@ -71,6 +71,38 @@ kable(itemanalyse, digits = 2, "latex", longtable = T, booktabs = T, row.names =
 * C = stof niet bekend
 * D = te moeilijk item of detailvraag
 * E = zwak item
+
+\pagebreak
+
+
+## Toelichting
+
+**Betrouwbaarheid KR-20**:
+Een maat voor de betrouwbaarheid/consistentie van het meetinstrument; de mate waarin
+dezelfde toetsscores worden verkregen bij herhaalde afname onder soortgelijke condities.
+
+**Livingston's kappa**:
+Een alternatieve maat voor de betrouwbaarheid/consistentie van het meetinstrument; waarbij de
+(absolute) cesuur wordt meegenomen in het bepalen van de betrouwbaarheid.
+
+**P**:
+De proportie studenten die het juiste alternatief heeft gekozen; een maat voor de
+moeilijkheidsgraad van het item.
+
+**P'**:
+De proportie studenten die het juiste alternatief heeft gekozen; gecorrigeerd voor kans; een maat voor de
+proportie kennis van de stof in de getoetste groep
+
+**rir**:
+De correlatie tussen de itemscores en de scores op de rest van de items (zonder het
+desbetreffende item); een maat voor het discriminerend vermogen van het item/
+onderscheidend vermogen tussen studenten met (meer) kennis van de stof en studenten met
+minder kennis. Een negatieve Rir-waarde geeft aan dat studenten die op de overige items
+van de toets relatief goed scoren, slechter scoren op het desbetreffende item dan de
+relatief slecht scorende studenten.
+
+**New Alpha**:
+Nieuwe betrouwbaarheid als de betreffende vraag verwijderd zou worden uit de toets
 
 \pagebreak
 
@@ -114,32 +146,6 @@ ggplot(itemanalyse, aes(rir, P)) +
 ```
 
 
-\pagebreak
 
-
-## Toelichting
-
-**Betrouwbaarheid KR-20/alpha**:
-Een maat voor de betrouwbaarheid/consistentie van het meetinstrument; de mate waarin
-dezelfde toetsscores worden verkregen bij herhaalde afname onder soortgelijke condities.
-
-**P-gem:**
-De proportie studenten die het juiste alternatief heeft gekozen; een maat voor de
-moeilijkheidsgraad van het item.
-
-**P'-gem:**
-De proportie studenten die het juiste alternatief heeft gekozen; gecorrigeerd voor kans; een maat voor de
-proportie kennis van de stof in de getoetste groep
-
-**rir:**
-De correlatie tussen de itemscores en de scores op de rest van de items (zonder het
-desbetreffende item); een maat voor het discriminerend vermogen van het item/
-onderscheidend vermogen tussen studenten met (meer) kennis van de stof en studenten met
-minder kennis. Een negatieve Rir-waarde geeft aan dat studenten die op de overige items
-van de toets relatief goed scoren, slechter scoren op het desbetreffende item dan de
-relatief slecht scorende studenten.
-
-**New Alpha**
-Nieuwe betrouwbaarheid als de betreffende vraag verwijderd zou worden uit de toets
 
 

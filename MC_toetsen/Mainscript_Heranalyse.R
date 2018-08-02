@@ -76,7 +76,7 @@ source("MC_toetsen/Analysescripts/Uitslagbestand.R")
 
 # 5. Genereren pdf rapport itemanalyse ------------------------------------
 thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd", 
-                                      output_file = paste0(Network_directory,
+                                      output_file = paste0(Network_directory,vakcode,"_",
                                                            "Itemanalyse.pdf"))
 
 # 6. Genereren inzage rapporten per student in pdf ------------------------

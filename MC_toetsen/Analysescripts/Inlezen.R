@@ -18,15 +18,26 @@
 toetsinfo <- read_xlsx(paste0(Network_directory,"toetsinfo.xlsx"))
 databestand <- toetsinfo$databestand
 naamtoets <- toetsinfo$`naam toets`
-datum <- toetsinfo$`datum toets`
+datum <- format(as.Date(toetsinfo$`datum toets`), "%d-%m-%Y") 
 nrq <- toetsinfo$`aantal vragen`
 nra <- toetsinfo$`aantal antwoordalternatieven`
 cesuur <- toetsinfo$cesuur
 nrv <- toetsinfo$`aantal versies`
 heranalyse <- toetsinfo$heranalyse
+vakcode <- gsub("_ruwedata.DEL", "", databestand)
 
 ##Open databestand
 teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
+## Als het ruwe databestand bewerkt is, dan via onderstaande regel inlezen
+# teleformdata <- read.table(paste0(Network_directory,databestand), sep="\t", header = T)
 
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
+
+## Check of er dubbele studentnummers in voorkomen
+if (anyDuplicated(teleformdata$stud_nr) > 0) {
+  
+  write.csv2("Er komen dubbele studentnummers voor, check de ruwe data", paste0(Network_directory,"error.csv"))
+  
+    stop(print("dubbele studentnummers"))
+}
