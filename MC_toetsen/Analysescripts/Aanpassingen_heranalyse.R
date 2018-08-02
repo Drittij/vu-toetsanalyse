@@ -10,9 +10,6 @@ if (heranalyse == "y") {
   nrq <- ncol(sleutel)
   nrc <- nrq+2
   
-  ## Schrijf data weg
-  write.csv2(data, file=paste0(Network_directory,"data.csv"), row.names=FALSE)
-  
   # sleutel <- readxl:: read_xlsx(paste0(Network_directory,"sleutel_nieuw.xlsx"))
 }
 

@@ -71,6 +71,15 @@ for (i in seq_along(ll)) {
            error = function(e) message("Oops!  ", as.character(e)))
 }
 
+## Schrijf indien gewenst de gescoorde data weg naar csv
+if (toetsinfo$scoredata == "y") {
+  vrn <- names(sleutel)
+  newnames <- c("studentnummer", "studentnaam", vrn)
+  gescoorde_data <- scored_datax
+  colnames(gescoorde_data) <- newnames
+  write.csv2(gescoorde_data, paste0(Network_directory,"scoreddata.csv"), row.names = F)
+}
+
 # 4A. Vul uitslagbestand --------------------------------------------------
 source("MC_toetsen/Analysescripts/Uitslagbestand.R")
 
