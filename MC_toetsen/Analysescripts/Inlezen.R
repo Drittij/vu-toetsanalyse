@@ -26,10 +26,32 @@ nrv <- toetsinfo$`aantal versies`
 heranalyse <- toetsinfo$heranalyse
 vakcode <- gsub("_ruwedata.DEL", "", databestand)
 
-##Open databestand
-teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
-## Als het ruwe databestand bewerkt is, dan via onderstaande regel inlezen
-# teleformdata <- read.table(paste0(Network_directory,databestand), sep="\t", header = T)
+if (toetsinfo$samenvoegen == "y") {
+  ## Samenvoegen 4 en 6k formulieren
+  samenvoegen <- read_xlsx(paste0(Network_directory,"samenvoegen.xlsx"))
+  databestand1 <- samenvoegen$databestand1
+  databestand2 <- samenvoegen$databestand2
+  databestand_new <- samenvoegen$databestand_new
+  
+  # teleformdata1 <- read.csv2(paste0(Network_directory,databestand1), sep="\t", fileEncoding="UTF-8-BOM")
+  # teleformdata2 <- read.csv2(paste0(Network_directory,databestand2), sep="\t", fileEncoding="UTF-8-BOM")
+  
+  teleformdata1 <- read.delim(paste0(Network_directory,databestand1))
+  teleformdata2 <- read.delim(paste0(Network_directory,databestand2))
+  
+  teleformdata <- bind_rows(teleformdata1, teleformdata2)
+  
+  write.table(teleformdata, paste0(Network_directory,databestand_new), row.names = F, sep="\t")
+  
+  rm(teleformdata, teleformdata1, teleformdata2, samenvoegen)
+  
+  teleformdata <- read.table(paste0(Network_directory,databestand), sep="\t", header = T)
+
+} else {
+  ##Open databestand
+  teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
+  
+}
 
 teleformdata <- teleformdata %>%
   dplyr:: select(stud_nr, stud_naam, everything())
