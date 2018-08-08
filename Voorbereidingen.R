@@ -41,8 +41,8 @@ if(!require(ggrepel)){install.packages("ggrepel")}
 if(!require(devtools)){install.packages("devtools")}
 if(!require(magrittr)){install.packages("magrittr")}
 if(!require(profvis)){install.packages("profvis")}
-if(!require(XLConnectJars)){devtools:: install_version("XLConnectJars", version = "0.2-12", repos = "http://cran.us.r-project.org")}
-if(!require(XLConnect)){devtools:: install_version("XLConnect", version = "0.2-12", repos = "http://cran.us.r-project.org")}
+if(!require(XLConnectJars)){install.packages("XLConnectJars", dependencies = TRUE)}
+if(!require(XLConnect)){install.packages("XLConnect", dependencies = TRUE)}
 
 
 # laden libraries ---------------------------------------------------------

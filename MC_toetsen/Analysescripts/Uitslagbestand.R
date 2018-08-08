@@ -8,7 +8,7 @@ cijfers <- total_score %>%
 
 instellingen <- data.frame(nrq, cesuur)
 
-wb <- loadWorkbook("G:\\DSZ\\OKZ\\OTIR\\tentamens\\tentamenuitslag_R.xlsx", create = TRUE)
+wb <- loadWorkbook("helpfiles/tentamenuitslag_R.xlsx", create = TRUE)
 writeWorksheet(wb, instellingen, sheet = "transformatie", startRow = 2, startCol = 9, header = F)
 writeWorksheet(wb, cijfers, sheet = "cijfers", startRow = 2, header = F)
 setForceFormulaRecalculation(wb, sheet = "*", TRUE)
