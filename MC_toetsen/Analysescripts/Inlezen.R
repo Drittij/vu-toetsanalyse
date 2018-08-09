@@ -1,20 +1,6 @@
 
 # Inlezen teleform en invullen metadata -----------------------------------
 
-# databestand <- dlgInput("Wat is de naam van het ruwe data bestand? ", 
-#                         Sys.info()["databestand"])$res
-# naamtoets <- dlgInput("Wat is de naam van de toets ", 
-#                       Sys.info()["naamtoets"])$res
-# datum <- dlgInput("Datum afname toets ", Sys.info()["datumtoets"])$res
-# nrq <- dlgInput("Hoeveel vragen bevat de toets? ", Sys.info()["nrq"])$res
-# nrq <- as.numeric(nrq)
-# nra <- dlgInput("Hoeveel antwoordalternatieven? ", Sys.info()["nra"])$res
-# nra <- as.numeric(nra)
-# cesuur <- dlgInput("Wat is de cesuur? ", Sys.info()["cesuur"])$res
-# cesuur <- as.numeric(cesuur)
-# nrv <- dlgInput("Aantal tentamenversies? ", Sys.info()["nrv"])$res
-# nrv <- as.numeric(nrv)
-
 toetsinfo <- read_xlsx(paste0(Network_directory,"toetsinfo.xlsx"))
 databestand <- toetsinfo$databestand
 naamtoets <- toetsinfo$`naam toets`
@@ -33,11 +19,11 @@ if (toetsinfo$samenvoegen == "y") {
   databestand2 <- samenvoegen$databestand2
   databestand_new <- samenvoegen$databestand_new
   
-  # teleformdata1 <- read.csv2(paste0(Network_directory,databestand1), sep="\t", fileEncoding="UTF-8-BOM")
-  # teleformdata2 <- read.csv2(paste0(Network_directory,databestand2), sep="\t", fileEncoding="UTF-8-BOM")
+  teleformdata1 <- read.csv2(paste0(Network_directory,databestand1), sep="\t", fileEncoding="UTF-8-BOM")
+  teleformdata2 <- read.csv2(paste0(Network_directory,databestand2), sep="\t", fileEncoding="UTF-8-BOM")
   
-  teleformdata1 <- read.delim(paste0(Network_directory,databestand1))
-  teleformdata2 <- read.delim(paste0(Network_directory,databestand2))
+  # teleformdata1 <- read.delim(paste0(Network_directory,databestand1))
+  # teleformdata2 <- read.delim(paste0(Network_directory,databestand2))
   
   teleformdata <- bind_rows(teleformdata1, teleformdata2)
   
