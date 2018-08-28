@@ -8,16 +8,15 @@
 	* Meerdere antwoorden goed kunnen rekenen
 	* 2:6 antwoordalternatieven
 	* Uitvoeren van hernalyses waarbij vragen verwijderd worden
-	* Apart de scores van vraaggroepen berekenen
 
 ### Afhankelijkheden ###
 
 * De teleform data is een tab gescheiden .DEL bestand 
 * Het pad van de netwerkmap die gebruikt wordt voor de input data is H:/usr, 
 deze is gedefineerd in het voorbereidingen script.
-* Installeer Pandoc en MiKTeX voor het maken van de pdf-itemanalyse
+* Installeer Pandoc en MiKTeX (of vergelijkbare software, ivm de werking van RMarkdown) voor het maken van de pdf-itemanalyse
 * Gebruik het analyse.bat bestand om de scripts buiten R uit te voeren, voeg
-hiervoor o.a. de R map toe aan het pad van de system environment.
+hiervoor o.a. de R map (bijvoorbeeld C:\Program Files\R\R-3.5.1\bin\i386) toe aan het pad van de system environment.
 
 ### Who do I talk to? ###
 
