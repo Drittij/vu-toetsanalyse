@@ -26,7 +26,7 @@ header-includes:
 ---
 \addtolength{\headheight}{0.5cm} 
 \pagestyle{fancyplain} 
-\lhead{Toetsanalyse} 
+\lhead{} 
 \rhead{\includegraphics[height=1.2cm]{G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/VUlogo.png}} 
 \renewcommand{\headrulewidth}{0pt}
 
@@ -37,7 +37,22 @@ Tentamenservice@vu.nl / (020) 59 83146
 
 ```{r, echo=FALSE}
 studentscores <- total_score
+
 names(toets) <- c("Aantal vragen", "Aantal studenten", "Betrouwbaarheid toets (KR20)", "Betrouwbaarheid toets (KR20-75)", "Gemiddelde score", "Standaard Afwijking score", "P'-Gem", "P-Gem", "Percentage geslaagde studenten", "Cesuur", "Livingston's kappa")
+
+toets <- toets %>% 
+  dplyr:: select('Aantal vragen', 
+         'Aantal studenten', 
+         'Betrouwbaarheid toets (KR20)', 
+         'Betrouwbaarheid toets (KR20-75)',
+         'Livingston\'s kappa',
+         'Gemiddelde score', 
+         'Standaard Afwijking score',
+         'P-Gem',
+         'P\'-Gem', 
+         'Cesuur',
+         'Percentage geslaagde studenten')
+
 toetswaardent <- as.data.frame(t(toets)) %>% tibble::rownames_to_column()
 
 library('knitr')
@@ -48,11 +63,13 @@ library('knitr')
 
 library(kableExtra)
 kable(toetswaardent, digits = 2, row.names = F, "latex", booktabs = T, 
+      longtable = T,
       col.names = c("Toetswaarden", "")) %>% 
       column_spec(1, width = "10cm") %>% 
       row_spec(0,bold=TRUE)
 
 ```
+
 
 ## Itemmaten en overzicht van de gekozen alternatieven
 
@@ -60,6 +77,19 @@ kable(toetswaardent, digits = 2, row.names = F, "latex", booktabs = T,
 ```{r, echo=FALSE}
 
 library(kableExtra)
+
+itemanalyse <- itemanalyse %>% 
+  dplyr:: select(Item,
+                 Key,
+                 everything())
+
+itemanalyse <- itemanalyse %>% 
+  dplyr:: rename(" " = '.A',
+                 "  " = '.B',
+                 "   " = '.C',
+                 "    " = '.D',
+                 "     " = '.E')
+
 kable(itemanalyse, digits = 2, "latex", longtable = T, booktabs = T, row.names = F) %>% 
           row_spec(0,bold=TRUE) %>%
           kable_styling(latex_options = c("repeat_header"), font_size = 8)
@@ -116,8 +146,10 @@ library(ggplot2)
 p <- ggplot(studentscores, aes(score))+
   geom_histogram(binwidth = 1)+
 xlim(0, as.numeric(toets$`Aantal vragen`)) +
-geom_vline(xintercept = toets$`Gemiddelde score`, color="blue")
-p + geom_vline(xintercept = cesuur, color="red")
+geom_vline(xintercept = toets$`Gemiddelde score`, color="blue", size = 2)
+p + geom_vline(xintercept = cesuur, color="red", size = 2)+
+  theme_classic(base_size = 16) +
+  labs(x = "Totaalscore op toets", y = "Frequentie")
 
 
 ```
@@ -133,14 +165,21 @@ library(ggrepel)
 
 set.seed(42)
 ggplot(itemanalyse, aes(rir, P)) +
-  geom_rect(data=itemanalyse,aes(xmin=min(rir)-0.1,xmax=0.1,ymin=-Inf,ymax=0.3),fill="red") + 
-  geom_rect(data=itemanalyse,aes(xmin=0.1,xmax=max(rir)+0.1,ymin=0.3,ymax=Inf),fill="lightgreen")+ 
-  geom_rect(data=itemanalyse,aes(xmin=0.1,xmax=max(rir)+0.1,ymin=-Inf,ymax=0.3),fill="orange")+
-  geom_rect(data=itemanalyse,aes(xmin=min(rir)-0.1,xmax=0.1,ymin=0.3,ymax=Inf),fill="orange")+
   geom_point(alpha=0.5) + 
   labs(x = "Rir waarde", y = "P waarde") + 
   geom_text_repel(aes(rir, P, label = Item)) + ylim(0,1) +
   theme_classic(base_size = 16)
+
+# set.seed(42)
+# ggplot(itemanalyse, aes(rir, P)) +
+#   geom_rect(data=itemanalyse,aes(xmin=min(rir)-0.1,xmax=0.1,ymin=-Inf,ymax=0.3),fill="red") + 
+#   geom_rect(data=itemanalyse,aes(xmin=0.1,xmax=max(rir)+0.1,ymin=0.3,ymax=Inf),fill="lightgreen")+ 
+#   geom_rect(data=itemanalyse,aes(xmin=0.1,xmax=max(rir)+0.1,ymin=-Inf,ymax=0.3),fill="orange")+
+#   geom_rect(data=itemanalyse,aes(xmin=min(rir)-0.1,xmax=0.1,ymin=0.3,ymax=Inf),fill="orange")+
+#   geom_point(alpha=0.5) + 
+#   labs(x = "Rir waarde", y = "P waarde") + 
+#   geom_text_repel(aes(rir, P, label = Item)) + ylim(0,1) +
+#   theme_classic(base_size = 16)
 
 
 ```
