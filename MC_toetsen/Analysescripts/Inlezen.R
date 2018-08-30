@@ -19,17 +19,22 @@ if (toetsinfo$samenvoegen == "y") {
   databestand2 <- samenvoegen$databestand2
   databestand_new <- samenvoegen$databestand_new
   
-  teleformdata1 <- read.csv2(paste0(Network_directory,databestand1), sep="\t", fileEncoding="UTF-8-BOM")
-  teleformdata2 <- read.csv2(paste0(Network_directory,databestand2), sep="\t", fileEncoding="UTF-8-BOM")
+  bestanden <-list(paste0(Network_directory,databestand1), paste0(Network_directory,databestand2))
   
-  # teleformdata1 <- read.delim(paste0(Network_directory,databestand1))
-  # teleformdata2 <- read.delim(paste0(Network_directory,databestand2))
+  inleesfunctie <- function(x){
+   read.csv2(x, sep="\t", fileEncoding="UTF-8-BOM")
+  }
   
-  teleformdata <- bind_rows(teleformdata1, teleformdata2)
+  # ## Gebruik eventueel deze inleesfuntie als de bestanden eerder bewerkt zijn
+  # inleesfunctie <- function(x){
+  #   read.delim(x)
+  # }
+  # 
+  teleformdata <- map_df(bestanden ,inleesfunctie)
   
   write.table(teleformdata, paste0(Network_directory,databestand_new), row.names = F, sep="\t")
   
-  rm(teleformdata, teleformdata1, teleformdata2, samenvoegen)
+  rm(teleformdata, samenvoegen)
   
   teleformdata <- read.table(paste0(Network_directory,databestand), sep="\t", header = T)
 
