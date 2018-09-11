@@ -41,7 +41,8 @@ if (toetsinfo$samenvoegen == "y") {
 } else {
   ##Open databestand
   teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
-  
+  # teleformdata <- read.delim(paste0(Network_directory,databestand)) %>% map_df(as.character)
+
 }
 
 teleformdata <- teleformdata %>%

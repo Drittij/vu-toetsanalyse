@@ -35,7 +35,7 @@ teleformdataC <- teleformdata %>% dplyr:: filter(Toetsversie == 3)
 teleformdataD <- teleformdata %>% dplyr:: filter(Toetsversie == 4)
 teleformdata_onbekend <- teleformdata %>% dplyr:: filter(Toetsversie >4)
 
-if (nrow(teleformdata_onbekend > 0)) {
+if (nrow(teleformdata_onbekend) >= 1) {
   write.csv2(teleformdata_onbekend, paste0(Network_directory,"geen_versie.csv"))
 }
 
@@ -105,6 +105,7 @@ teleformdataB_correct <- cbind(teleformdataB$stud_nr,
 ##Toevoegen studentnummers aan a versie
 teleformdataA <- cbind(teleformdataA$stud_nr, 
                        teleformdataA$stud_naam, teleformdataA_new) %>% 
+  map_df(as.character) %>% 
   dplyr:: rename(stud_nr = 'teleformdataA$stud_nr',
                  stud_naam = 'teleformdataA$stud_naam') %>% 
   dplyr:: filter(stud_nr > 0) 
