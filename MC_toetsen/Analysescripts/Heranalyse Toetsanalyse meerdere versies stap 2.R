@@ -42,7 +42,8 @@ total_score <- cbind(studentnummers_namen, scored_data[1])
 total_score <- mutate(total_score, cijfer = (10-(nrq-total_score$score)/(nrq-cesuur)*(10-5.5)))
 total_score <-  total_score %>% mutate(cijfer = replace(cijfer, cijfer<1, 1))
 
-total_score <- dplyr:: rename(total_score, studentnamen = stud_naam, studentnummers = stud_nr)
+total_score <- dplyr:: rename(total_score, studentnamen = stud_naam, studentnummers = stud_nr) %>% 
+  mutate(studentnummers = as.integer(studentnummers))
 
 ## Toon cronbachs alpha
 KR20 <- purrr:: pluck(scored_data, 2, "alpha")
