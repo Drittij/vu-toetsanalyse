@@ -41,6 +41,7 @@ if(!require(ggrepel)){install.packages("ggrepel")}
 if(!require(devtools)){install.packages("devtools")}
 if(!require(magrittr)){install.packages("magrittr")}
 if(!require(profvis)){install.packages("profvis")}
+if(!require(data.table)){install.packages("data.table")}
 if(!require(XLConnectJars)){install.packages("XLConnectJars", dependencies = TRUE)}
 if(!require(XLConnect)){install.packages("XLConnect", dependencies = TRUE)}
 

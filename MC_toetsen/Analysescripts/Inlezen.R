@@ -22,7 +22,7 @@ if (toetsinfo$samenvoegen == "y") {
   bestanden <-list(paste0(Network_directory,databestand1), paste0(Network_directory,databestand2))
   
   inleesfunctie <- function(x){
-   read.csv2(x, sep="\t", fileEncoding="UTF-8-BOM")
+   data.table:: fread(x)
   }
   
   # ## Gebruik eventueel deze inleesfuntie als de bestanden eerder bewerkt zijn
@@ -40,7 +40,7 @@ if (toetsinfo$samenvoegen == "y") {
 
 } else {
   ##Open databestand
-  teleformdata <- read.csv2(paste0(Network_directory,databestand), sep="\t", fileEncoding="UTF-8-BOM")
+  teleformdata <- data.table:: fread(paste0(Network_directory,databestand))
   # teleformdata <- read.delim(paste0(Network_directory,databestand)) %>% map_df(as.character)
 
 }
