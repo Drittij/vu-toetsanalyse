@@ -40,7 +40,7 @@ if (toetsinfo$samenvoegen == "y") {
 
 } else {
   ##Open databestand
-  teleformdata <- data.table:: fread(paste0(Network_directory,databestand))
+  teleformdata <- data.table:: fread(paste0(Network_directory,databestand)) %>% as.data.frame()
   # teleformdata <- read.delim(paste0(Network_directory,databestand)) %>% map_df(as.character)
 
 }
