@@ -4,7 +4,7 @@
 ## LET OP!! Verwijder ook de verwijderde vragen
 
 if (heranalyse == "y") {
-  sleutel <- read.csv2(paste0(Network_directory,"sleutel_nieuw.csv"))
+  sleutel <- read.csv2(paste0(Network_directory,"sleutel_nieuw.csv"), colClasses = "character")
   data <- dplyr:: select(data, one_of(names(sleutel)))
   
   nrq <- ncol(sleutel)
