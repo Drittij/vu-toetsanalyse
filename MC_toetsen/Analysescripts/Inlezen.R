@@ -25,11 +25,6 @@ if (toetsinfo$samenvoegen == "y") {
    data.table:: fread(x)
   }
   
-  # ## Gebruik eventueel deze inleesfuntie als de bestanden eerder bewerkt zijn
-  # inleesfunctie <- function(x){
-  #   read.delim(x)
-  # }
-  # 
   teleformdata <- map_df(bestanden ,inleesfunctie)
   
   write.table(teleformdata, paste0(Network_directory,databestand_new), row.names = F, sep="\t")
@@ -41,8 +36,6 @@ if (toetsinfo$samenvoegen == "y") {
 } else {
   ##Open databestand
   teleformdata <- data.table:: fread(paste0(Network_directory,databestand)) %>% as.data.frame()
-  # teleformdata <- read.delim(paste0(Network_directory,databestand)) %>% map_df(as.character)
-
 }
 
 teleformdata <- teleformdata %>%
@@ -53,5 +46,5 @@ if (anyDuplicated(teleformdata$stud_nr) > 0) {
   
   write.csv2("Er komen dubbele studentnummers voor, check de ruwe data", paste0(Network_directory,"error.csv"))
   
-    stop(print("dubbele studentnummers"))
+    stop("dubbele studentnummers")
 }

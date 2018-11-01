@@ -195,7 +195,7 @@ if(ttest$p.value < 0.05) {
   write.csv2(versie_score, paste0(Network_directory,"Versie_score_verschillen.csv"))
   
   print("Gemiddelde score versie B en A verschillen significant")
-  profvis::pause(60)
+  profvis::pause(20)
   
 }
 
@@ -208,7 +208,7 @@ if(ttest2$p.value < 0.05) {
   write.csv2(versie_score, paste0(Network_directory,"Versie_score_verschillen.csv"))
   
   print("Gemiddelde score versie C en A verschillen significant")
-  profvis::pause(60)
+  profvis::pause(20)
 }
 }
 
@@ -221,7 +221,7 @@ if (nrv == 4) {
     write.csv2(versie_score, paste0(Network_directory,"Versie_score_verschillen.csv"))
     
     print("Gemiddelde score versie C en A verschillen significant")
-    profvis::pause(60)
+    profvis::pause(20)
   }
   
 ttest3 <- tsum.test(mean.x=versie_score$mean[1],   s.x=versie_score$sd[1], n.x=versie_score$n[1],
@@ -232,7 +232,7 @@ if(ttest3$p.value < 0.05) {
   write.csv2(versie_score, paste0(Network_directory,"Versie_score_verschillen.csv"))
   
   print("Gemiddelde score versie D en A verschillen significant")
-  profvis::pause(60)
+  profvis::pause(20)
   
 }
 }
