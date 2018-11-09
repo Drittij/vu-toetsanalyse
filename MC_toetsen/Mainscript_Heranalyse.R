@@ -73,7 +73,7 @@ for (i in seq_along(ll)) {
 ## Schrijf indien gewenst de gescoorde data weg naar csv
 if (toetsinfo$scoredata == "y") {
   vrn <- names(sleutel)
-  newnames <- c("studentnummer", "studentnaam", vrn)
+  newnames <- c("studentnummer", vrn)
   gescoorde_data <- scored_datax
   colnames(gescoorde_data) <- newnames
   write.csv2(gescoorde_data, paste0(Network_directory,"scoreddata.csv"), row.names = F)
@@ -94,32 +94,28 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
 
 # 7. Vraaggroepen ---------------------------------------------------------
 
-##Bereken scores per vraaggroep. 
+#Bereken scores per vraaggroep.
 # Pas onderstaand script aan welke vragen bij elkaar horen
 # vrn <- names(sleutel)
-# newnames <- c("studentnummer", "studentnaam", vrn)
+# newnames <- c("studentnummers", vrn)
 # colnames(scored_datax) <- newnames
 # 
 # vraag_groep <- mutate(scored_datax,
-#                       groep1=V1+V2+V3+V4,
-#                       groep2=V5+V6+V8,
-#                       groep3=V9+V10+V11+V12)
+#                       groep1=V1+V2+V3+V4+V5+V6+V7+V8+V9+V10+V11,
+#                       groep2=V12+V13+V14+V15+V16+V17+V18+V19+V20+V21+V22+V23+V24+V25+V26+V27+V28+V29+V30+V31+V32+V33+V34)
 # 
 # vraag_groep_score <- dplyr:: select(vraag_groep,
-#                                     studentnummer,
+#                                     studentnummers,
 #                                     groep1,
-#                                     groep2,
-#                                     groep3) 
+#                                     groep2)
 # 
-# avg_groep_score <- vraag_groep_score %>% 
+# avg_groep_score <- vraag_groep_score %>%
 #   summarise(groep1_m = mean(groep1),
 #             groep1_sd = sd(groep1),
 #             groep2_m = mean(groep2),
-#             groep2_sd = sd(groep2),
-#             groep3_m = mean(groep3),
-#             groep3_sd = sd(groep3)) %>% 
-#   t() %>% as.data.frame %>% rownames_to_column(var = "Groep") 
-#             
+#             groep2_sd = sd(groep2)) %>%
+#   t() %>% as.data.frame %>% rownames_to_column(var = "Groep")
+# 
 # write.csv2(vraag_groep_score, file=paste0(Network_directory,
 #                                           "vraaggroepen.csv"), row.names=FALSE)
 # 
