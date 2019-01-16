@@ -142,7 +142,7 @@ if (nra >= 6) {
 ##Genereer advies op basis van P- en rirwaarden
 itemanalyse <- itemanalyse %>% 
   mutate(.A = if_else(Rel_P < 0.4 & rir <= 0.10, "A", ""), 
-         .B = if_else(Rel_P < 0.8 & rir < -0.10, "B", ""),
+         .B = if_else(Rel_P < 0.7 & rir < -0.10, "B", ""),
          .C = if_else(P_waarde < 0.3 & rir <= 0.05 & rir >= -0.05, "C", ""),
          .D = if_else(P_waarde < (gk+0.04) & rir > 0.05, "D", ""),
          .E = if_else(Rel_P + rir < 0.4, "E", ""))
