@@ -80,7 +80,14 @@ if (toetsinfo$scoredata == "y") {
 }
 
 # 4A. Vul uitslagbestand --------------------------------------------------
-source("MC_toetsen/Analysescripts/Uitslagbestand.R")
+if (startsWith(vakcode, "inh")) {
+  
+  source("MC_toetsen/Analysescripts/Uitslagbestand_inholland.R")
+  
+} else { 
+  
+  source("MC_toetsen/Analysescripts/Uitslagbestand.R")
+}
 
 
 # 5. Genereren pdf rapport itemanalyse ------------------------------------
@@ -97,17 +104,25 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
 #Bereken scores per vraaggroep.
 # Pas onderstaand script aan welke vragen bij elkaar horen
 # vrn <- names(sleutel)
-# newnames <- c("studentnummers", vrn)
+# newnames <- c("studentnummers", "studentnaam", vrn)
 # colnames(scored_datax) <- newnames
 # 
 # vraag_groep <- mutate(scored_datax,
-#                       groep1=V1+V2+V3+V4+V5+V6+V7+V8+V9+V10+V11,
-#                       groep2=V12+V13+V14+V15+V16+V17+V18+V19+V20+V21+V22+V23+V24+V25+V26+V27+V28+V29+V30+V31+V32+V33+V34)
+#                       groep1=V1+V2+V3+V4+V5+V6,
+#                       groep2=V7+V8+V9+V10+V11+V12+V13+V14,
+#                       groep3=V15+V16+V17+V18+V19+V20+V21+V22+V23,
+#                       groep4=V24+V25+V26+V27+V28+V29+V30,
+#                       groep5=V31+V32+V33+V34+V35,
+#                       groep6=V36+V37+V38+V39+V40)
 # 
 # vraag_groep_score <- dplyr:: select(vraag_groep,
 #                                     studentnummers,
 #                                     groep1,
-#                                     groep2)
+#                                     groep2,
+#                                     groep3,
+#                                     groep4,
+#                                     groep5,
+#                                     groep6)
 # 
 # avg_groep_score <- vraag_groep_score %>%
 #   summarise(groep1_m = mean(groep1),
