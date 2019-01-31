@@ -22,7 +22,7 @@ if (toetsinfo$samenvoegen == "y") {
   bestanden <-list(paste0(Network_directory,databestand1), paste0(Network_directory,databestand2))
   
   inleesfunctie <- function(x){
-   data.table:: fread(x)
+   data.table:: fread(x, encoding = 'UTF-8')
   }
   
   teleformdata <- map_df(bestanden ,inleesfunctie)
@@ -35,7 +35,7 @@ if (toetsinfo$samenvoegen == "y") {
 
 } else {
   ##Open databestand
-  teleformdata <- data.table:: fread(paste0(Network_directory,databestand)) %>% as.data.frame()
+  teleformdata <- data.table:: fread(paste0(Network_directory,databestand), encoding = 'UTF-8') %>% as.data.frame()
 }
 
 teleformdata <- teleformdata %>%
