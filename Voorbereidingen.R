@@ -39,7 +39,7 @@ pacman::p_load(CTT, stringr, dplyr, psych, ggplot2, readxl,
 # library(XLConnect)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
-Network_directory_WIN <- "H:/ddj200/usr/"
+Network_directory_WIN <- "H:/usr/"
 Network_directory_MAC <- "/Volumes/groups/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
 
 if (.Platform$OS.type == "windows") {
