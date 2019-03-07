@@ -104,7 +104,7 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
 #Bereken scores per vraaggroep.
 # Pas onderstaand script aan welke vragen bij elkaar horen
 # vrn <- names(sleutel)
-# newnames <- c("studentnummers", "studentnaam", vrn)
+# newnames <- c("studentnummers", vrn)
 # colnames(scored_datax) <- newnames
 # 
 # vraag_groep <- mutate(scored_datax,

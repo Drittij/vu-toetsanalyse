@@ -35,6 +35,7 @@ Tentamenservice@vu.nl / (020) 59 83146
 
 \hfill\break
 
+
 ```{r, echo=FALSE}
 studentscores <- total_score
 
@@ -57,7 +58,6 @@ toetswaardent <- as.data.frame(t(toets)) %>% tibble::rownames_to_column()
 
 library('knitr')
 ```
-
 
 ```{r, echo=FALSE}
 

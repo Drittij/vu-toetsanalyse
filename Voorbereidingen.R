@@ -24,48 +24,22 @@
 ### 21-06-2018: DD: Functies toegevoegd om data te prepareren en analyseren
 ################################################################################
 
-# installeren benodigde packages ------------------------------------------
-if(!require(CTT)){install.packages("CTT")}
-if(!require(stringr)){install.packages("stringr")}
-if(!require(dplyr)){install.packages("dplyr")}
-if(!require(psych)){install.packages("psych")}
-if(!require(ggplot2)){install.packages("ggplot2")}
-if(!require(readxl)){install.packages("readxl")}
-if(!require(purrr)){install.packages("purrr")}
-if(!require(knitr)){install.packages("knitr")}
-if(!require(reshape2)){install.packages("reshape2")}
-if(!require(kableExtra)){install.packages("kableExtra")}
-if(!require(tibble)){install.packages("tibble")}
-if(!require(PASWR)){install.packages("PASWR")}
-if(!require(ggrepel)){install.packages("ggrepel")}
-if(!require(devtools)){install.packages("devtools")}
-if(!require(magrittr)){install.packages("magrittr")}
-if(!require(profvis)){install.packages("profvis")}
-if(!require(data.table)){install.packages("data.table")}
-if(!require(XLConnectJars)){install.packages("XLConnectJars", dependencies = TRUE)}
-if(!require(XLConnect)){install.packages("XLConnect", dependencies = TRUE)}
-
-
-# laden libraries ---------------------------------------------------------
-library(CTT)
-library(stringr)
-library(dplyr)
-library(psych)
-library(ggplot2)
-library(readxl)
-library(purrr)
-library(knitr)
-library(reshape2)
-library(kableExtra)
-library(tibble)
-library(PASWR)
-library(ggrepel)
-library(XLConnect)
-library(magrittr)
-library(profvis)
+# installeren en laden benodigde packages ------------------------------------------
+# if(!require(pacman)){install.packages("pacman")}
+pacman::p_load(CTT, stringr, dplyr, psych, ggplot2, readxl,
+               purrr, knitr, reshape2, kableExtra, tibble,
+               PASWR, ggrepel, devtools, magrittr, profvis,
+               data.table, XLConnect)
+# 
+# if(!require(XLConnectJars)){install.packages("XLConnectJars", dependencies = TRUE)}
+# if(!require(XLConnect)){install.packages("XLConnect", dependencies = TRUE)}
+# 
+# 
+# # laden libraries ---------------------------------------------------------
+# library(XLConnect)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
-Network_directory_WIN <- "H:/usr/"
+Network_directory_WIN <- "H:/ddj200/usr/"
 Network_directory_MAC <- "/Volumes/groups/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
 
 if (.Platform$OS.type == "windows") {
