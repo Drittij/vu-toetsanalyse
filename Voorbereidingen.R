@@ -25,7 +25,7 @@
 ################################################################################
 
 # installeren en laden benodigde packages ------------------------------------------
-# if(!require(pacman)){install.packages("pacman")}
+if(!require(pacman)){install.packages("pacman")}
 pacman::p_load(CTT, stringr, dplyr, psych, ggplot2, readxl,
                purrr, knitr, reshape2, kableExtra, tibble,
                PASWR, ggrepel, devtools, magrittr, profvis,
