@@ -30,6 +30,23 @@ is.na(data) <- data==''
 scored_data <- score_mc(data, sleutel, multiKeySep = ",", 
                         output.scored = TRUE, rel = TRUE)
 
+## Maak een afleideranalyse op basis van gegeven antwoorden en sleutel
+rar_analyse <- distractorAnalysis(data, sleutel, multiKeySep = ",") %>% bind_rows(.id = "id") %>% 
+  dplyr:: select(id, key, pBis) %>% spread(key = key, value = pBis)
+
+tsleutel <- t(sleutel) %>% as.data.frame() %>% 
+  rownames_to_column(var = "id") %>% 
+  dplyr:: select(id, sleutel = V1)
+
+rar_analyse <- rar_analyse %>% 
+  left_join(tsleutel) %>% 
+  mutate(vraagnummer = readr:: parse_number(id)) %>% 
+  arrange(vraagnummer) %>% 
+  dplyr:: select(vraagnummer,
+                 sleutel,
+                 everything()) %>% 
+  dplyr:: select(-id)
+
 studentnummers_namen <- teleformdata_correct[1:2]
 
 ##Toevoegen studentnummers en namen aan score data

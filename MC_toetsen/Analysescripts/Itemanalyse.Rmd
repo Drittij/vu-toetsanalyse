@@ -185,6 +185,19 @@ ggplot(itemanalyse, aes(rir, P)) +
 ```
 
 
+\pagebreak
 
+## Analyse van de antwoordalternatieven
+### Toelichting:
+In deze tabel wordt de rar-waarde per alternatief weergegeven.
+Goede afleiders hebben een negatieve rar-waarde. Het correcte antwoord hoort een positieve rar-waarde te hebben
 
+```{r, echo=FALSE}
 
+library(kableExtra)
+
+kable(rar_analyse, digits = 2, "latex", longtable = T, booktabs = T, row.names = F) %>% 
+          row_spec(0,bold=TRUE) %>%
+          kable_styling(latex_options = c("repeat_header"), font_size = 8)
+
+```
