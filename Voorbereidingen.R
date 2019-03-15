@@ -29,7 +29,7 @@ if(!require(pacman)){install.packages("pacman")}
 pacman::p_load(CTT, stringr, dplyr, psych, ggplot2, readxl,
                purrr, knitr, reshape2, kableExtra, tibble,
                PASWR, ggrepel, devtools, magrittr, profvis,
-               data.table, XLConnect)
+               data.table, XLConnect, tidyr)
 # 
 # if(!require(XLConnectJars)){install.packages("XLConnectJars", dependencies = TRUE)}
 # if(!require(XLConnect)){install.packages("XLConnect", dependencies = TRUE)}
@@ -39,7 +39,10 @@ pacman::p_load(CTT, stringr, dplyr, psych, ggplot2, readxl,
 # library(XLConnect)
 
 # Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
-Network_directory_WIN <- "H:/usr/"
+vunetid <- Sys.getenv("USERNAME")
+
+# Bepaal de netwerk directory op basis van het besturingsssyteem: windows = VU
+Network_directory_WIN <- paste0("G:/DSZ/OKZ/OTIR/Toetsen/",vunetid,"/")
 Network_directory_MAC <- "/Volumes/groups/DSZ/OKZ/OTIR/Toetsen/Werkmap/"
 
 if (.Platform$OS.type == "windows") {
