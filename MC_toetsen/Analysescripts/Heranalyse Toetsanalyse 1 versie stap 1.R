@@ -50,6 +50,12 @@ studentnamen <- teleformdata_new %>%  dplyr:: filter(stud_nr > 0) %>%
   dplyr:: select(stud_naam) %>% 
   dplyr:: rename(studentnamen = stud_naam)
 
+## Maak studentnummer en namenbestand
+studentnummers_namen <- teleformdata_new %>% 
+  dplyr:: filter(stud_nr > 0) %>% 
+  dplyr:: select(stud_nr,
+         stud_naam)
+
 ###Extraheer data en verwijder eerste twee kolommen 
 ## (=studentnamen en studentnummers)
 data <- teleformdata_new %>% dplyr:: filter(stud_nr > 0) %>% 

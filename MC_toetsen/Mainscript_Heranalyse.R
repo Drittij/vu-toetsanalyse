@@ -104,25 +104,19 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
 #Bereken scores per vraaggroep.
 # Pas onderstaand script aan welke vragen bij elkaar horen
 # vrn <- names(sleutel)
-# newnames <- c("studentnummers", vrn)
+# newnames <- c("studentnummers", "studentnamen", vrn)
 # colnames(scored_datax) <- newnames
 # 
 # vraag_groep <- mutate(scored_datax,
 #                       groep1=V1+V2+V3+V4+V5+V6,
-#                       groep2=V7+V8+V9+V10+V11+V12+V13+V14,
-#                       groep3=V15+V16+V17+V18+V19+V20+V21+V22+V23,
-#                       groep4=V24+V25+V26+V27+V28+V29+V30,
-#                       groep5=V31+V32+V33+V34+V35,
-#                       groep6=V36+V37+V38+V39+V40)
+#                       groep2=V7+V8+V9+V10+V11+V12+V13+V14+V15+V16+V17,
+#                       groep3=V18+V19+V20)
 # 
 # vraag_groep_score <- dplyr:: select(vraag_groep,
 #                                     studentnummers,
 #                                     groep1,
 #                                     groep2,
-#                                     groep3,
-#                                     groep4,
-#                                     groep5,
-#                                     groep6)
+#                                     groep3)
 # 
 # avg_groep_score <- vraag_groep_score %>%
 #   summarise(groep1_m = mean(groep1),

@@ -51,7 +51,7 @@ rar_analyse <- rar_analyse %>%
 
 
 ##Toevoegen studentnummers aan score data
-scored_datax <- cbind(studentnummers, scored_data$scored)
+scored_datax <- cbind(studentnummers_namen, scored_data$scored)
 
 ##Toevoegen studentnummers aan totaalscore student
 total_score <- cbind(studentnummers, scored_data[1])
