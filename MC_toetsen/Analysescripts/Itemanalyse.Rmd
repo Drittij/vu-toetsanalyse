@@ -24,7 +24,7 @@ header-includes:
 - \newcommand{\elandscape}{\end{landscape}}
 
 ---
-\addtolength{\headheight}{0.5cm} 
+\addtolength{\headheight}{38pt} 
 \pagestyle{fancyplain} 
 \lhead{} 
 \rhead{\includegraphics[height=1.2cm]{G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/VUlogo.png}} 
