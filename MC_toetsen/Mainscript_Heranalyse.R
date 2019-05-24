@@ -84,16 +84,26 @@ if (startsWith(vakcode, "inh")) {
   
   source("MC_toetsen/Analysescripts/Uitslagbestand_inholland.R")
   
-} else { 
+} else if (toetsinfo$taal == "e"){ 
   
+  source("MC_toetsen/Analysescripts/Uitslagbestand_Engels.R")
+  
+} else {
   source("MC_toetsen/Analysescripts/Uitslagbestand.R")
 }
 
 
 # 5. Genereren pdf rapport itemanalyse ------------------------------------
+if (toetsinfo$taal == "e"){ 
+  thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse_Engels.Rmd", 
+                                        output_file = paste0(Network_directory,vakcode,"_",
+                                                             "Itemanalysis.pdf"))
+} else {
+  
 thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd", 
                                       output_file = paste0(Network_directory,vakcode,"_",
                                                            "Itemanalyse.pdf"))
+}
 
 # 6. Genereren inzage rapporten per student in pdf ------------------------
 # source("MC_toetsen/Analysescripts/Inzage rapport.R")
@@ -108,9 +118,8 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
 # colnames(scored_datax) <- newnames
 # 
 # vraag_groep <- mutate(scored_datax,
-#                       groep1=V1+V2+V3+V4+V5+V6,
-#                       groep2=V7+V8+V9+V10+V11+V12+V13+V14+V15+V16+V17,
-#                       groep3=V18+V19+V20)
+#                       groep1=V1+V2+V3+V4+V5+V6+V7+V8+V9+V10+V11+V12+V13+V14+V15+V16+V17+V18+V19+V20+V21+V22+V23+V24+V25+V27+V29+V32,
+#                       groep2= V26+V28+V30+V31+V33+V34)
 # 
 # vraag_groep_score <- dplyr:: select(vraag_groep,
 #                                     studentnummers,

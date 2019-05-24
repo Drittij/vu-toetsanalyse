@@ -10,6 +10,7 @@ nra <- toetsinfo$`aantal antwoordalternatieven`
 cesuur <- toetsinfo$cesuur
 nrv <- toetsinfo$`aantal versies`
 heranalyse <- toetsinfo$heranalyse
+taal <- toetsinfo$taal
 vakcode <- gsub("_ruwedata.DEL", "", databestand)
 
 if (toetsinfo$samenvoegen == "y") {
