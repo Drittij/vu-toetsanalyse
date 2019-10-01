@@ -24,6 +24,7 @@
 ### 02-08-2018: DD: Bugs verholpen, checks ingebouwd en relatieve paden verbeterd
 ################################################################################
 
+
 # 0. Voorbereidingen ------------------------------------------------------
 ## Bepaal hier de working directory. Als het bestand vanuit Rstudio uitgevoerd
 ## wordt is er geen wijziging nodig, als het bestand vanuit een .bat bestand 
