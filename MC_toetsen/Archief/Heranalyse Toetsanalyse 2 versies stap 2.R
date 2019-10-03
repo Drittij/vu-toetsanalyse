@@ -21,7 +21,6 @@
 ### 24-04-2018: DD: Aanmaken bestand
 ################################################################################
 
-
 ## Vervang lege cellen met NA zodat deze goed gescoord worden
 data[] <- lapply(data, str_trim)
 is.na(data) <- data==''
