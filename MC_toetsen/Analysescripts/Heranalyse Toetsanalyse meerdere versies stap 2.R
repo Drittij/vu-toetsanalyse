@@ -253,3 +253,24 @@ if(ttest3$p.value < 0.05) {
   
 }
 }
+
+## Als er geen verschil is tussen de twee versies, wel bestandje aanmaken 'Gemiddelden per versie'
+if (nrv == 2) {
+  if(ttest$p.value >= 0.05){
+    write.csv2(versie_score, paste0(Network_directory,"Gemiddelde_per_versie.csv"))
+  }
+}
+    
+
+if (nrv == 3) {
+  if(ttest$p.value >= 0.05 && ttest2$p.value >= 0.05){
+    write.csv2(versie_score, paste0(Network_directory,"Gemiddelde_per_versie.csv"))
+  }
+}
+
+if (nrv == 4) {
+  if(ttest$p.value >= 0.05 && ttest2$p.value >= 0.05 && ttest3$p.value >= 0.05){
+    write.csv2(versie_score, paste0(Network_directory,"Gemiddelde_per_versie.csv"))
+  }
+}
+
