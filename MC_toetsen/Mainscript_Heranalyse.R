@@ -143,14 +143,8 @@ thetitle=naamtoets; rmarkdown::render("MC_toetsen/Analysescripts/Itemanalyse.Rmd
 # 8. Correlatiematrix vragen genereren ------------------------------------
 # ## Correlatiematrix vragen
 # par(mfrow=c(1,1))
-# corP <- psych:: polychoric(scored_data$scored) 
-# corrplot:: corrplot(corP$rho) 
-
-
-# 9. Analyse van afleiders ------------------------------------------------
-# (The point-biserial correlation between that reponse and the total score with that item removed)
-# disanalyse <- distractorAnalysis(data, sleutel, multiKeySep=",",
-#                                  multiKeyScore=c("or","dich"))
+# corP <- psych:: polychoric(scored_data$scored)
+# corrplot:: corrplot(corP$rho)
 
 ################################################################################
 ## EINDE

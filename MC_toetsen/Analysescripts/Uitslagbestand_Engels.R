@@ -15,4 +15,4 @@ setForceFormulaRecalculation(wb, sheet = "*", TRUE)
 clearRange(wb, sheet = "grades", coords = c(nrst+2, 6, 1000, 6))
 clearRange(wb, sheet = "grades", coords = c(nrst+2, 4, 1000, 4))
 
-saveWorkbook(wb, paste0(Network_directory,vakcode,"_","uitslagbestand.xlsx"))
+saveWorkbook(wb, paste0(Network_directory,vakcode,"_","results.xlsx"))
