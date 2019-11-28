@@ -39,7 +39,7 @@ Tentamenservice@vu.nl / (020) 59 83146
 ```{r, echo=FALSE}
 studentscores <- total_score
 
-names(toets) <- c("Total Number of Questions", "Total Number of Students", "Reliability Exam (KR-20)", "Predicted Reliability (75 questions)", "Average score", "Standard deviation scores", "Adjusted P value exam", "P value exam", "Passing Rate", "Cut score", "Livingston's kappa")
+names(toets) <- c("Total Number of Questions", "Total Number of Students", "Reliability Exam (KR-20)", "Predicted Reliability (75 questions)", "Average score", "Standard deviation scores", "Standard Error of Measurement (SEm)", "Adjusted P value exam", "P value exam", "Passing Rate", "Cut score", "Livingston's kappa")
 
 toets <- toets %>% 
   dplyr:: select('Total Number of Questions', 
@@ -49,6 +49,7 @@ toets <- toets %>%
          'Livingston\'s kappa',
          'Average score', 
          'Standard deviation scores',
+         'Standard Error of Measurement (SEm)',
          'P value exam',
          'Adjusted P value exam', 
          'Cut score',

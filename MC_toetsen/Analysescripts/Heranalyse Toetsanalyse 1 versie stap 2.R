@@ -103,7 +103,8 @@ toets <- mutate(toets, KR20_75 = KR20_75) %>%
                  KR20_75,
                  scaleMean,
                  scaleSD) %>% 
-  dplyr:: mutate(meanRelP = round(summarise(itemanalyse, mean(Rel_P))$`mean(Rel_P)`, digits = 2),
+  dplyr:: mutate(Standaardmeetfout = round(scaleSD*sqrt(1-alpha), digits = 2),
+                 meanRelP = round(summarise(itemanalyse, mean(Rel_P))$`mean(Rel_P)`, digits = 2),
                  meanP = round(summarise(itemanalyse, mean(P_waarde))$`mean(P_waarde)`, digits = 2),
                  perc_geslaagd = paste0(round(geslaagd/nrow(total_score)*100),"%"),
                  cesuur = cesuur)
